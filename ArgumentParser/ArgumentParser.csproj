@@ -40,6 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\IArgumentSpecification.cs" />
+    <Compile Include="Api\IFluentArgumentBuilder.cs" />
+    <Compile Include="Api\IFluentCommandBuilder.cs" />
+    <Compile Include="Api\IFluentOptionBuilder.cs" />
+    <Compile Include="Api\IFluentOptionTypeBuilder.cs" />
+    <Compile Include="Api\IFluentSyntaxBuilder.cs" />
+    <Compile Include="Api\IParser.cs" />
+    <Compile Include="Api\IParserResult.cs" />
     <Compile Include="Attributes\ArgumentAttribute.cs" />
     <Compile Include="Attributes\Internal\AttributeHelper.cs" />
     <Compile Include="Attributes\CommandAttribute.cs" />

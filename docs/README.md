@@ -1,29 +1,77 @@
 # Argument-Parser
 Argument-Parser is a .NET library for parsing command line arguments.
 
-*Supported Syntax*
-[-|--|/][name|letter][toggle][=|:| ][value]
+*Supported Syntax*  
+`[-|--|/][name|letter][toggle][=|:| ][value]`
 
-*Argument Types*
-Option: -o, --option
-Switch: /s, /S
-Value: "string value", 123, true|false
+# Getting Started
+To get started, clone or download the source and import the `ArgumentParser` namespace.
 
-Boolean options
+Argument-Parser can be used declaratively through attributes or fluently through the fluent API.  
 
-example.exe -s  // enable option s
-example.exe -s- // disable option s
-example.exe -s+ // enable option s
+## Fluent Usage
+````
+using ArgumentParser;
 
-Combined (grouped) options
+class Options
+{
+    public string StringOption { get; set; }
+    public bool BooleanOption { get; set; }
+}
 
-example.exe -xyz  // enable option x, y and z
-example.exe -xyz- // disable option x, y and z
-example.exe -xyz+ // enable option x, y and z
+class Program
+{
+    static void Main(string[] args)
+    {
+        // cmd.exe --option "test"
 
+        var parser = new Parser<Options>();
 
-Assignment Characters
-Whitespace
-=
-:
+        parser.Setup(o => o.StringOption)
+            .As('o', "option")
+            .IsRequired();
 
+        parser.Setup(o => o.BooleanOption)
+            .As('f', "flag")
+            .SetDefault(true);
+
+        var result = parser.Parse(args);
+
+        var options = result.Options;
+
+        Debug.Assert(options.StringOption == "test");
+        Debug.Assert(options.BooleanOption == true);
+    }
+}
+````
+
+## Declarative Usage
+````
+using ArgumentParser;
+
+class Options
+{
+    [Option('o', "option", Required = true)]
+    public string StringOption { get; set; }
+
+    [Option('f', "flag", DefaultValue = true)]
+    public bool BooleanOption { get; set; }
+}
+
+class Program
+{
+    static void Main(string[] args)  
+    {  
+        // cmd.exe --option "test"
+
+        var parser = new Parser<Options>();
+            
+        var result = parser.Parse(args);
+
+        var options = result.Options;
+
+        Debug.Assert(options.StringOption == "test");
+        Debug.Assert(options.BooleanOption == true);
+    }
+}
+````
