@@ -8,9 +8,9 @@ using ArgumentParser.Api;
 
 namespace ArgumentParser.Internal
 {
-    internal class SyntaxBuilder<TOptions> : Dictionary<object, IArgumentSpecification>, IFluentSyntaxBuilder<TOptions>
+    internal class ArgumentSpecifications<TOptions> : Dictionary<object, IArgumentSpecification>, IFluentSyntaxBuilder<TOptions>
     {
-        public SyntaxBuilder()
+        public ArgumentSpecifications()
         {
             ReadCommandAttributes();
             ReadOptionAttributes();
@@ -105,7 +105,7 @@ namespace ArgumentParser.Internal
                 throw new InvalidOptionNameException(name);
         }
 
-        private void ArgumentSpecification_KeyChanged(object sender, NameChangedEventArgs e)
+        private void ArgumentSpecification_KeyChanged(object sender, KeyChangedEventArgs e)
         {
             var key = e.Key;
             if (ContainsKey(key))

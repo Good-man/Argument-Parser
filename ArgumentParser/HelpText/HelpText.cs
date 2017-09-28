@@ -7,11 +7,11 @@ namespace ArgumentParser
     public class HelpText<TOptions>
         where TOptions : new()
     {
-        private readonly SyntaxBuilder<TOptions> _syntaxBuilder;
+        private readonly ArgumentSpecifications<TOptions> _argumentSpecifications;
 
         public HelpText()
         {
-            _syntaxBuilder = new SyntaxBuilder<TOptions>();
+            _argumentSpecifications = new ArgumentSpecifications<TOptions>();
         }
 
         public HelpText(Action<HelpSettings> configure) : this()
@@ -21,12 +21,12 @@ namespace ArgumentParser
 
         public IFluentSyntaxBuilder<TOptions> Configure()
         {
-            return _syntaxBuilder;
+            return _argumentSpecifications;
         }
 
         public void DisplayHelp()
         {
-            var argumentSpecifications = _syntaxBuilder.GetSpecifications();
+            var argumentSpecifications = _argumentSpecifications.GetSpecifications();
             var helpText = new HelpTextInternal(argumentSpecifications);
             helpText.DisplayHelp();
         }

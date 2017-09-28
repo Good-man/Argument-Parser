@@ -11,7 +11,7 @@ namespace ArgumentParser
         //[TestMethod]
         public void TestMethod1()
         {
-            var sb = new SyntaxBuilder<Options1>();
+            var sb = new ArgumentSpecifications<Options1>();
             sb.Setup(o => o.StringProperty).As("string");
             Assert.Inconclusive();
         }
@@ -19,7 +19,7 @@ namespace ArgumentParser
         [TestMethod]
         public void TestMethod2()
         {
-            var sb = new SyntaxBuilder<Options2>();
+            var sb = new ArgumentSpecifications<Options2>();
             Assert.Inconclusive();
         }
 

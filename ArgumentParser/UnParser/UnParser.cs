@@ -157,25 +157,25 @@ namespace ArgumentParser
 
     public class UnParser<TOptions> : UnParser
     {
-        private readonly SyntaxBuilder<TOptions> _syntaxBuilder;
+        private readonly ArgumentSpecifications<TOptions> _argumentSpecifications;
 
-        public UnParser() : this(new SyntaxBuilder<TOptions>(), UnParserSettings.Default)
+        public UnParser() : this(new ArgumentSpecifications<TOptions>(), UnParserSettings.Default)
         {
         }
 
         public UnParser(Action<UnParserSettings> configure) : base(configure)
         {
-            _syntaxBuilder = new SyntaxBuilder<TOptions>();
+            _argumentSpecifications = new ArgumentSpecifications<TOptions>();
         }
 
-        private UnParser(SyntaxBuilder<TOptions> syntaxBuilder, UnParserSettings unParserSettings) : base(unParserSettings)
+        private UnParser(ArgumentSpecifications<TOptions> argumentSpecifications, UnParserSettings unParserSettings) : base(unParserSettings)
         {
-            _syntaxBuilder = syntaxBuilder;
+            _argumentSpecifications = argumentSpecifications;
         }
 
         public IFluentSyntaxBuilder<TOptions> Configure()
         {
-            return _syntaxBuilder;
+            return _argumentSpecifications;
         }
 
         public string FormatCommandLine(TOptions options)
@@ -185,7 +185,7 @@ namespace ArgumentParser
 
             var sb = new StringBuilder();
 
-            foreach (var commandBuilder in _syntaxBuilder.GetSpecifications<CommandSpecification>())
+            foreach (var commandBuilder in _argumentSpecifications.GetSpecifications<CommandSpecification>())
             {
                 // TODO: Format Command
                 sb.Append(commandBuilder.LongName);
@@ -207,7 +207,7 @@ namespace ArgumentParser
 
         internal string FormatMember(TOptions options, MemberInfo memberInfo)
         {
-            var argumentSpecification = _syntaxBuilder
+            var argumentSpecification = _argumentSpecifications
                 .GetSpecifications<ArgumentSpecification>()
                 .FirstOrDefault(a => a.MemberInfo == memberInfo);
             if (argumentSpecification == null)

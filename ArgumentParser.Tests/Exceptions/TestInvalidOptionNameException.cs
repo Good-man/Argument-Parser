@@ -15,7 +15,7 @@ namespace ArgumentParser
         public void SyntaxBuilder_InvalidName_ExpectInvalidOptionNameException()
         {
             Debug.WriteLine(Argument.NamePattern);
-            var syntaxBuilder = new SyntaxBuilder<Options>();
+            var syntaxBuilder = new ArgumentSpecifications<Options>();
             try
             {
                 syntaxBuilder.ValidateName("name@");

@@ -14,7 +14,7 @@ namespace ArgumentParser
         [TestCategory("DuplicateName")]
         public void SyntaxBuilder_DuplicateName_ExpectOptionAlreadyExistsException()
         {
-            var syntaxBuilder = new SyntaxBuilder<Options>();
+            var syntaxBuilder = new ArgumentSpecifications<Options>();
             syntaxBuilder.Setup(o => o.Value1).As('o');
             try
             {
