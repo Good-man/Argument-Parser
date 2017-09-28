@@ -81,10 +81,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ArgumentParser.Api\ArgumentParser.Api.csproj">
-      <Project>{62070DA0-EF74-445D-B1A9-DB93B2857F50}</Project>
-      <Name>ArgumentParser.Api</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ArgumentParser\ArgumentParser.csproj">
       <Project>{A711C1CB-E432-40BD-A63C-BAA95379BB06}</Project>
       <Name>ArgumentParser</Name>

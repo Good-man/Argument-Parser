@@ -46,8 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandLine.cs" />
-    <Compile Include="Program - Copy.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Declarative Usage.cs" />
+    <Compile Include="Fluent Usage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

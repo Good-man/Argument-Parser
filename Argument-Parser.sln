@@ -12,8 +12,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArgumentParser.Tests", "ArgumentParser.Tests\ArgumentParser.Tests.csproj", "{7EE21F83-8C20-4963-9DBD-3B386FF4F181}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArgumentParser.Api", "ArgumentParser.Api\ArgumentParser.Api.csproj", "{62070DA0-EF74-445D-B1A9-DB93B2857F50}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArgumentParser.Usage", "ArgumentParser.Usage\ArgumentParser.Usage.csproj", "{16737B32-2751-408E-976A-53A7B874CAC0}"
 EndProject
 Global
@@ -30,10 +28,6 @@ Global
 		{7EE21F83-8C20-4963-9DBD-3B386FF4F181}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7EE21F83-8C20-4963-9DBD-3B386FF4F181}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7EE21F83-8C20-4963-9DBD-3B386FF4F181}.Release|Any CPU.Build.0 = Release|Any CPU
-		{62070DA0-EF74-445D-B1A9-DB93B2857F50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{62070DA0-EF74-445D-B1A9-DB93B2857F50}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{62070DA0-EF74-445D-B1A9-DB93B2857F50}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{62070DA0-EF74-445D-B1A9-DB93B2857F50}.Release|Any CPU.Build.0 = Release|Any CPU
 		{16737B32-2751-408E-976A-53A7B874CAC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{16737B32-2751-408E-976A-53A7B874CAC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16737B32-2751-408E-976A-53A7B874CAC0}.Release|Any CPU.ActiveCfg = Release|Any CPU

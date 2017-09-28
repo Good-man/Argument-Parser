@@ -81,12 +81,6 @@
     <Compile Include="UnParser\UnParser.cs" />
     <Compile Include="UnParser\UnParserSettings.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ArgumentParser.Api\ArgumentParser.Api.csproj">
-      <Project>{62070DA0-EF74-445D-B1A9-DB93B2857F50}</Project>
-      <Name>ArgumentParser.Api</Name>
-    </ProjectReference>
-  </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
