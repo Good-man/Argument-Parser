@@ -10,7 +10,7 @@ To get started, clone or download the source and import the `ArgumentParser` nam
 Argument-Parser can be used declaratively through attributes or fluently through the fluent API.  
 
 ## Fluent Usage
-````
+```c#
 using ArgumentParser;
 
 class Options
@@ -43,10 +43,10 @@ class Program
         Debug.Assert(options.BooleanOption == true);
     }
 }
-````
+```
 
 ## Declarative Usage
-````
+```c#
 using ArgumentParser;
 
 class Options
@@ -74,4 +74,4 @@ class Program
         Debug.Assert(options.BooleanOption == true);
     }
 }
-````
+```
