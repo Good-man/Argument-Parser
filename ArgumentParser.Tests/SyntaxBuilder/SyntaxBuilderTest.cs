@@ -16,7 +16,7 @@ namespace ArgumentParser
             Assert.Inconclusive();
         }
 
-        [TestMethod]
+        //[TestMethod]
         public void TestMethod2()
         {
             var sb = new ArgumentSpecifications<Options2>();

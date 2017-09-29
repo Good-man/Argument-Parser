@@ -44,7 +44,7 @@ namespace ArgumentParser
                                  Name = string.IsNullOrEmpty(n) ? null : n,
                                  Suffix = OptionSuffix.Parse(s),
                                  AssignmentCharacter = AssignmentOperator.Parse(a),
-                                 Value = v,
+                                 Value = v
                              }).ToArray();
 
             Debug.WriteLine($"Test Variations: {variations.Length}");

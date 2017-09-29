@@ -1,6 +1,7 @@
 using System;
 using ArgumentParser.Internal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+// ReSharper disable BuiltInTypeReferenceStyle
 
 namespace ArgumentParser
 {
@@ -21,7 +22,7 @@ namespace ArgumentParser
             new TestData("-i -32768", typeof(Int16), Int16.MinValue),
             new TestData("-i 32767", typeof(Int16), Int16.MaxValue),
             new TestData("--optiona", typeof(MyEnum), MyEnum.OptionA),
-            new TestData("--optionb", typeof(MyEnum), MyEnum.OptionB),
+            new TestData("--optionb", typeof(MyEnum), MyEnum.OptionB)
         };
 
         private enum MyEnum

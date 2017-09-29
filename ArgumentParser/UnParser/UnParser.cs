@@ -111,7 +111,7 @@ namespace ArgumentParser
             if (!required && value == null && defaultValue == null)
                 return string.Empty;
 
-            var type = value?.GetType() ?? defaultValue?.GetType();
+            var type = value?.GetType() ?? defaultValue.GetType();
 
             if (type == typeof(string))
             {

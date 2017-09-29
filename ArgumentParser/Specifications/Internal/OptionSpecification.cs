@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using ArgumentParser.Api;
 
@@ -62,8 +60,6 @@ namespace ArgumentParser.Internal
             Description = description;
             return this;
         }
-
-        private readonly Dictionary<object, TValue> _enumOptions = new Dictionary<object, TValue>();
 
         public override string ToString()
         {

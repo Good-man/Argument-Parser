@@ -17,10 +17,12 @@ namespace ConsoleApp.Usage.Declarative
     {
         static void Main(string[] args)
         {
-            // cmd.exe --option "test"
-            args = CommandLine.Split("--option \"test\"");
+            if (args == null)
+                // cmd.exe --option "test"
+                args = CommandLine.Split("--option \"test\"");
+
             var parser = new Parser<Options>();
-            
+
             var result = parser.Parse(args);
 
             var options = result.Options;

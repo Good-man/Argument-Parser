@@ -1,5 +1,6 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+// ReSharper disable BuiltInTypeReferenceStyle
 
 namespace ArgumentParser
 {
