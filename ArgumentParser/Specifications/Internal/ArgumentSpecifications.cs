@@ -8,51 +8,9 @@ using ArgumentParser.Api;
 
 namespace ArgumentParser.Internal
 {
-    internal class ArgumentSpecifications<TOptions> : Dictionary<object, IArgumentSpecification>, IFluentSyntaxBuilder<TOptions>
+    internal class ArgumentSpecifications<TOptions> : Dictionary<object, IArgumentSpecification>,
+        IFluentSyntaxBuilder<TOptions>
     {
-        public ArgumentSpecifications()
-        {
-        }
-
-        internal void ReadAttributes()
-        {
-            ReadCommandAttributes();
-            ReadOptionAttributes();
-        }
-
-        private void ReadCommandAttributes()
-        {
-            var commandAttributes = typeof(TOptions).GetCommandAttributes();
-            foreach (var commandAttribute in commandAttributes)
-            {
-                var name = commandAttribute.Name;
-                Setup(name);
-            }
-        }
-
-        private void ReadOptionAttributes()
-        {
-            var optionAttributes = typeof(TOptions).GetOptionAttributes();
-            foreach (var memberInfo in optionAttributes.Keys)
-            {
-                var memberType = memberInfo.GetMemberType();
-                var setupMethod = this.GetType()
-                    .GetMethods(BindingFlags.Instance | BindingFlags.NonPublic)
-                    .Where(m => m.Name == "Setup")
-                    .Select(m => new
-                    {
-                        Method = m,
-                        Params = m.GetParameters(),
-                    })
-                    .Where(x => x.Params.Length == 1 && x.Params[0].ParameterType == typeof(MemberInfo))
-                    .Select(x => x.Method)
-                    .Single();
-                var genericSetup = setupMethod.MakeGenericMethod(memberType);
-                var argumentSpecification = genericSetup.Invoke(this, new object[] { memberInfo }) as ArgumentSpecification;
-                // TODO: set properties based on attributes
-            }
-        }
-
         public IFluentCommandBuilder Setup(string name)
         {
             if (ContainsKey(name))
@@ -72,12 +30,7 @@ namespace ArgumentParser.Internal
 
         public IFluentOptionTypeBuilder<TValue> Setup<TValue>(Expression<Func<TOptions, TValue>> selector)
         {
-            var memberInfo = ((MemberExpression)selector.Body).Member;
-            return Setup<TValue>(memberInfo);
-        }
-
-        internal IFluentOptionTypeBuilder<TValue> Setup<TValue>(MemberInfo memberInfo)
-        {
+            var memberInfo = ((MemberExpression) selector.Body).Member;
             if (ContainsKey(memberInfo))
             {
                 var builder = this[memberInfo] as OptionSpecification<TValue>;
@@ -101,6 +54,12 @@ namespace ArgumentParser.Internal
             where TSpecification : IArgumentSpecification
         {
             return Values.Distinct().OfType<TSpecification>();
+        }
+
+        internal void ReadAttributes()
+        {
+            ReadCommandAttributes();
+            ReadOptionAttributes();
         }
 
         internal void ValidateName(string name)
@@ -128,6 +87,40 @@ namespace ArgumentParser.Internal
             var name = key as string;
             if (name != null)
                 ValidateName(name);
+        }
+
+        private void ReadCommandAttributes()
+        {
+            var commandAttributes = typeof(TOptions).GetCommandAttributes();
+            foreach (var commandAttribute in commandAttributes)
+            {
+                var name = commandAttribute.Name;
+                Setup(name);
+            }
+        }
+
+        private void ReadOptionAttributes()
+        {
+            var optionAttributes = typeof(TOptions).GetOptionAttributes();
+            foreach (var memberInfo in optionAttributes.Keys)
+            {
+                var memberType = memberInfo.GetMemberType();
+                var setupMethod = GetType()
+                    .GetMethods(BindingFlags.Instance | BindingFlags.NonPublic)
+                    .Where(m => m.Name == "Setup")
+                    .Select(m => new
+                    {
+                        Method = m,
+                        Params = m.GetParameters()
+                    })
+                    .Where(x => x.Params.Length == 1 && x.Params[0].ParameterType == typeof(MemberInfo))
+                    .Select(x => x.Method)
+                    .Single();
+                var genericSetup = setupMethod.MakeGenericMethod(memberType);
+                var argumentSpecification =
+                    genericSetup.Invoke(this, new object[] {memberInfo}) as ArgumentSpecification;
+                // TODO: set properties based on attributes
+            }
         }
     }
 }
