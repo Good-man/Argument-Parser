@@ -12,6 +12,10 @@ namespace ArgumentParser.Internal
     {
         public ArgumentSpecifications()
         {
+        }
+
+        internal void ReadAttributes()
+        {
             ReadCommandAttributes();
             ReadOptionAttributes();
         }

@@ -15,6 +15,7 @@ namespace ArgumentParser
         public Parser()
         {
             _argumentSpecifications = new ArgumentSpecifications<TOptions>();
+            _argumentSpecifications.ReadAttributes();
         }
 
         public IParserResult<TOptions> Parse(IEnumerable<string> args)

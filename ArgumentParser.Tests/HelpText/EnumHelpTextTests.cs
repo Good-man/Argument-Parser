@@ -12,6 +12,7 @@ namespace ArgumentParser
         public void Enum_DisplayHelp_DefaultStyle()
         {
             var syntaxBuilder = new ArgumentSpecifications<Options>();
+            syntaxBuilder.ReadAttributes();
             syntaxBuilder.Setup(o => o.MyEnum)
                 .WithoutName(0)
                 .SetDefault(MyEnum.OptionA)

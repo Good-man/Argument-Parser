@@ -10,7 +10,7 @@ namespace ArgumentParser
     public class EnumerableTests
     {
         [TestMethod]
-        public void TestMethod1()
+        public void EnumerableOfStringsTest()
         {
             var args = CommandLine.Split(@"""one"" ""two"" ""three""");
             var parser = new Parser<Options>();
