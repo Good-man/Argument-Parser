@@ -21,10 +21,10 @@ namespace ArgumentParser
                 .SetDefault(DateTime.Parse("9/11/2001 9:03 am"));
 
             Parser.SetupValue(o => o.Flight77)
-                .WithoutName(0);
+                .As(0);
 
             Parser.SetupValue(o => o.Flight93)
-                .WithoutName(1)
+                .As(1)
                 .SetDefault(DateTime.Parse("9/11/2001 10:07 am"));
         }
 

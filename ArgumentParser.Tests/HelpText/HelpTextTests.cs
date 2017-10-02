@@ -12,8 +12,8 @@ namespace ArgumentParser
             var helpText = new HelpText<Options>();
             helpText.Configure().SetupCommand("command");
             helpText.Configure().SetupOption(o => o.Option1).As('o', "option").WithDescription("Option description");
-            helpText.Configure().SetupValue(o => o.Value1).WithoutName(0).WithDescription("Value 1 description");
-            helpText.Configure().SetupValue(o => o.Value2).WithoutName(1).WithDescription("Value 2 description");
+            helpText.Configure().SetupValue(o => o.Value1).As(0).WithDescription("Value 1 description");
+            helpText.Configure().SetupValue(o => o.Value2).As(1).WithDescription("Value 2 description");
             helpText.DisplayHelp();
         }
 
@@ -23,8 +23,8 @@ namespace ArgumentParser
             var helpText = new HelpText<Options>(with => with.HelpStyle = HelpStyle.WindowsStyle);
             helpText.Configure().SetupCommand("command");
             helpText.Configure().SetupOption(o => o.Option1).As('o', "option").WithDescription("Option description");
-            helpText.Configure().SetupValue(o => o.Value1).WithoutName(0).WithDescription("Value 1 description");
-            helpText.Configure().SetupValue(o => o.Value2).WithoutName(1).WithDescription("Value 2 description");
+            helpText.Configure().SetupValue(o => o.Value1).As(0).WithDescription("Value 1 description");
+            helpText.Configure().SetupValue(o => o.Value2).As(1).WithDescription("Value 2 description");
             helpText.DisplayHelp();
         }
 
@@ -34,8 +34,8 @@ namespace ArgumentParser
             var helpText = new HelpText<Options>(with => with.HelpStyle = HelpStyle.UnixStyle);
             helpText.Configure().SetupCommand("command");
             helpText.Configure().SetupOption(o => o.Option1).As('o', "option").WithDescription("Option description");
-            helpText.Configure().SetupValue(o => o.Value1).WithoutName(0).WithDescription("Value 1 description");
-            helpText.Configure().SetupValue(o => o.Value2).WithoutName(1).WithDescription("Value 2 description");
+            helpText.Configure().SetupValue(o => o.Value1).As(0).WithDescription("Value 1 description");
+            helpText.Configure().SetupValue(o => o.Value2).As(1).WithDescription("Value 2 description");
             helpText.DisplayHelp();
         }
 

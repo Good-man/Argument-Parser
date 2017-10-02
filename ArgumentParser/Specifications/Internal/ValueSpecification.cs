@@ -16,7 +16,7 @@ namespace ArgumentParser.Internal
             return this;
         }
 
-        IFluentValueBuilder<TValue> IFluentValueBuilder<TValue>.WithoutName(int index)
+        IFluentValueBuilder<TValue> IFluentValueBuilder<TValue>.As(int index)
         {
             Index = index;
             return this;

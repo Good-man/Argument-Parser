@@ -14,7 +14,7 @@ namespace ArgumentParser
             var syntaxBuilder = new ArgumentSpecifications<Options>();
             syntaxBuilder.ReadAttributes();
             syntaxBuilder.SetupValue(o => o.MyEnum)
-                .WithoutName(0)
+                .As(0)
                 .SetDefault(MyEnum.OptionA)
                 .WithDescription("Enum option description");
             var helpText = new HelpTextInternal(syntaxBuilder.GetSpecifications());
