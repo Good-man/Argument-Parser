@@ -11,7 +11,7 @@ namespace ArgumentParser.Internal
     internal class ArgumentSpecifications<TOptions> : Dictionary<object, IArgumentSpecification>,
         IFluentSyntaxBuilder<TOptions>
     {
-        public IFluentCommandBuilder Setup(string name)
+        public IFluentCommandBuilder SetupCommand(string name)
         {
             if (ContainsKey(name))
             {
@@ -28,7 +28,7 @@ namespace ArgumentParser.Internal
             return commandBuilder;
         }
 
-        public IFluentOptionTypeBuilder<TValue> Setup<TValue>(Expression<Func<TOptions, TValue>> selector)
+        public IFluentOptionBuilder<TValue> SetupOption<TValue>(Expression<Func<TOptions, TValue>> selector)
         {
             var memberInfo = ((MemberExpression) selector.Body).Member;
             if (ContainsKey(memberInfo))
@@ -43,6 +43,23 @@ namespace ArgumentParser.Internal
             optionBuilder.KeyChanged += ArgumentSpecification_KeyChanged;
             this[memberInfo] = optionBuilder;
             return optionBuilder;
+        }
+
+        public IFluentValueBuilder<TValue> SetupValue<TValue>(Expression<Func<TOptions, TValue>> selector)
+        {
+            var memberInfo = ((MemberExpression) selector.Body).Member;
+            if (ContainsKey(memberInfo))
+            {
+                var builder = this[memberInfo] as ValueSpecification<TValue>;
+                if (builder != null)
+                    return builder;
+                Remove(memberInfo);
+            }
+            var valueSpecification = new ValueSpecification<TValue>(memberInfo);
+            valueSpecification.KeyChanging += ArgumentSpecification_KeyChanging;
+            valueSpecification.KeyChanged += ArgumentSpecification_KeyChanged;
+            this[memberInfo] = valueSpecification;
+            return valueSpecification;
         }
 
         internal IEnumerable<IArgumentSpecification> GetSpecifications()
@@ -95,7 +112,7 @@ namespace ArgumentParser.Internal
             foreach (var commandAttribute in commandAttributes)
             {
                 var name = commandAttribute.Name;
-                Setup(name);
+                SetupCommand(name);
             }
         }
 

@@ -5,7 +5,8 @@ namespace ArgumentParser.Api
 {
     public interface IFluentSyntaxBuilder<TOptions>
     {
-        IFluentCommandBuilder Setup(string name);
-        IFluentOptionTypeBuilder<TValue> Setup<TValue>(Expression<Func<TOptions, TValue>> selector);
+        IFluentCommandBuilder SetupCommand(string name);
+        IFluentOptionBuilder<TValue> SetupOption<TValue>(Expression<Func<TOptions, TValue>> selector);
+        IFluentValueBuilder<TValue> SetupValue<TValue>(Expression<Func<TOptions, TValue>> selector);
     }
 }

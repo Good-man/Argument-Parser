@@ -13,7 +13,7 @@ namespace ArgumentParser
         {
             var syntaxBuilder = new ArgumentSpecifications<Options>();
             syntaxBuilder.ReadAttributes();
-            syntaxBuilder.Setup(o => o.MyEnum)
+            syntaxBuilder.SetupValue(o => o.MyEnum)
                 .WithoutName(0)
                 .SetDefault(MyEnum.OptionA)
                 .WithDescription("Enum option description");

@@ -12,7 +12,7 @@ namespace ArgumentParser
         public void TestMethod1()
         {
             var sb = new ArgumentSpecifications<Options1>();
-            sb.Setup(o => o.StringProperty).As("string");
+            sb.SetupOption(o => o.StringProperty).As("string");
             Assert.Inconclusive();
         }
 

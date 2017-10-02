@@ -44,8 +44,8 @@
     <Compile Include="Api\IFluentArgumentBuilder.cs" />
     <Compile Include="Api\IFluentCommandBuilder.cs" />
     <Compile Include="Api\IFluentOptionBuilder.cs" />
-    <Compile Include="Api\IFluentOptionTypeBuilder.cs" />
     <Compile Include="Api\IFluentSyntaxBuilder.cs" />
+    <Compile Include="Api\IFluentValueBuilder.cs" />
     <Compile Include="Api\IParser.cs" />
     <Compile Include="Api\IParserResult.cs" />
     <Compile Include="Attributes\ArgumentAttribute.cs" />
@@ -78,6 +78,7 @@
     <Compile Include="Specifications\Internal\OptionSpecification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Specifications\Internal\ArgumentSpecifications.cs" />
+    <Compile Include="Specifications\Internal\ValueSpecification.cs" />
     <Compile Include="UnParser\UnParser.cs" />
     <Compile Include="UnParser\UnParserSettings.cs" />
   </ItemGroup>
