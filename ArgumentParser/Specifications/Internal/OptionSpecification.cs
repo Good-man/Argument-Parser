@@ -3,7 +3,7 @@ using ArgumentParser.Api;
 
 namespace ArgumentParser.Internal
 {
-    internal class OptionSpecification<TValue> : ArgumentSpecification, IFluentOptionBuilder<TValue>, IFluentOptionTypeBuilder<TValue>
+    internal class OptionSpecification<TValue> : ArgumentSpecification, IFluentOptionBuilder<TValue>
     {
         internal OptionSpecification(MemberInfo memberInfo) : base(memberInfo)
         {
@@ -15,37 +15,31 @@ namespace ArgumentParser.Internal
             return this;
         }
 
-        IFluentOptionBuilder<TValue> IFluentOptionTypeBuilder<TValue>.As(string longName)
+        IFluentOptionBuilder<TValue> IFluentOptionBuilder<TValue>.As(string longName)
         {
             LongName = longName;
             return this;
         }
 
-        IFluentOptionBuilder<TValue> IFluentOptionTypeBuilder<TValue>.As(string longName, char shortName)
+        IFluentOptionBuilder<TValue> IFluentOptionBuilder<TValue>.As(string longName, char shortName)
         {
-            var typeBuilder = (IFluentOptionTypeBuilder<TValue>)this;
+            var typeBuilder = (IFluentOptionBuilder<TValue>)this;
             typeBuilder.As(longName);
             typeBuilder.As(shortName);
             return this;
         }
 
-        IFluentOptionBuilder<TValue> IFluentOptionTypeBuilder<TValue>.As(char shortName)
+        IFluentOptionBuilder<TValue> IFluentOptionBuilder<TValue>.As(char shortName)
         {
             ShortName = shortName;
             return this;
         }
 
-        IFluentOptionBuilder<TValue> IFluentOptionTypeBuilder<TValue>.As(char shortName, string longName)
+        IFluentOptionBuilder<TValue> IFluentOptionBuilder<TValue>.As(char shortName, string longName)
         {
-            var typeBuilder = (IFluentOptionTypeBuilder<TValue>)this;
+            var typeBuilder = (IFluentOptionBuilder<TValue>)this;
             typeBuilder.As(shortName);
             typeBuilder.As(longName);
-            return this;
-        }
-
-        IFluentOptionBuilder<TValue> IFluentOptionTypeBuilder<TValue>.WithoutName(int index)
-        {
-            Index = index;
             return this;
         }
 

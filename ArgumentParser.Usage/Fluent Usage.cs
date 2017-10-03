@@ -18,11 +18,11 @@ namespace ConsoleApp.Usage
             args = CommandLine.Split("--option \"test\"");
             var parser = new Parser<Options>();
 
-            parser.Setup(o => o.StringOption)
+            parser.SetupOption(o => o.StringOption)
                 .As('o', "option")
                 .IsRequired();
 
-            parser.Setup(o => o.BooleanOption)
+            parser.SetupOption(o => o.BooleanOption)
                 .As('f', "flag")
                 .SetDefault(true);
 

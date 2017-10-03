@@ -12,24 +12,24 @@ namespace ArgumentParser
         {
             Parser = new Parser<GitConfigOptions>();
 
-            Parser.Setup("config")
+            Parser.SetupCommand("config")
                 .WithDescription("Get and set repository or global options");
 
-            Parser.Setup(arg => arg.FileOptions).WithoutName(0)
+            Parser.SetupValue(arg => arg.FileOptions).As(0)
                 .SetDefault(FileOptions.Global)
                 .IsRequired()
                 .WithDescription("Config file location");
 
-            Parser.Setup(option => option.GetTheSetting)
+            Parser.SetupOption(option => option.GetTheSetting)
                 .As("get")
                 .WithDescription("Get the setting's value");
 
-            Parser.Setup(arg => arg.SettingName)
-                .WithoutName(0)
+            Parser.SetupValue(arg => arg.SettingName)
+                .As(0)
                 .IsRequired()
                 .WithDescription("The name of the setting");
 
-            Parser.Setup(arg => arg.SettingValue).WithoutName(1)
+            Parser.SetupValue(arg => arg.SettingValue).As(1)
                 .WithDescription("The value of the setting");
         }
 

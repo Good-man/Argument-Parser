@@ -68,10 +68,10 @@ namespace ArgumentParser
         {
             var parser = new Parser<IntegerRange<TValue>>();
 
-            parser.Setup(o => o.Min)
+            parser.SetupOption(o => o.Min)
                 .As("min");
 
-            parser.Setup(o => o.Max)
+            parser.SetupOption(o => o.Max)
                 .As("max");
 
             return parser;

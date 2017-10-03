@@ -10,10 +10,10 @@ namespace ArgumentParser
         public void DisplayHelp_DefaultStyle()
         {
             var helpText = new HelpText<Options>();
-            helpText.Configure().Setup("command");
-            helpText.Configure().Setup(o => o.Option1).As('o', "option").WithDescription("Option description");
-            helpText.Configure().Setup(o => o.Value1).WithoutName(0).WithDescription("Value 1 description");
-            helpText.Configure().Setup(o => o.Value2).WithoutName(1).WithDescription("Value 2 description");
+            helpText.Configure().SetupCommand("command");
+            helpText.Configure().SetupOption(o => o.Option1).As('o', "option").WithDescription("Option description");
+            helpText.Configure().SetupValue(o => o.Value1).As(0).WithDescription("Value 1 description");
+            helpText.Configure().SetupValue(o => o.Value2).As(1).WithDescription("Value 2 description");
             helpText.DisplayHelp();
         }
 
@@ -21,10 +21,10 @@ namespace ArgumentParser
         public void DisplayHelp_WindowsStyle()
         {
             var helpText = new HelpText<Options>(with => with.HelpStyle = HelpStyle.WindowsStyle);
-            helpText.Configure().Setup("command");
-            helpText.Configure().Setup(o => o.Option1).As('o', "option").WithDescription("Option description");
-            helpText.Configure().Setup(o => o.Value1).WithoutName(0).WithDescription("Value 1 description");
-            helpText.Configure().Setup(o => o.Value2).WithoutName(1).WithDescription("Value 2 description");
+            helpText.Configure().SetupCommand("command");
+            helpText.Configure().SetupOption(o => o.Option1).As('o', "option").WithDescription("Option description");
+            helpText.Configure().SetupValue(o => o.Value1).As(0).WithDescription("Value 1 description");
+            helpText.Configure().SetupValue(o => o.Value2).As(1).WithDescription("Value 2 description");
             helpText.DisplayHelp();
         }
 
@@ -32,10 +32,10 @@ namespace ArgumentParser
         public void DisplayHelp_UnixStyle()
         {
             var helpText = new HelpText<Options>(with => with.HelpStyle = HelpStyle.UnixStyle);
-            helpText.Configure().Setup("command");
-            helpText.Configure().Setup(o => o.Option1).As('o', "option").WithDescription("Option description");
-            helpText.Configure().Setup(o => o.Value1).WithoutName(0).WithDescription("Value 1 description");
-            helpText.Configure().Setup(o => o.Value2).WithoutName(1).WithDescription("Value 2 description");
+            helpText.Configure().SetupCommand("command");
+            helpText.Configure().SetupOption(o => o.Option1).As('o', "option").WithDescription("Option description");
+            helpText.Configure().SetupValue(o => o.Value1).As(0).WithDescription("Value 1 description");
+            helpText.Configure().SetupValue(o => o.Value2).As(1).WithDescription("Value 2 description");
             helpText.DisplayHelp();
         }
 

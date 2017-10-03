@@ -13,18 +13,18 @@ namespace ArgumentParser
         {
             Parser = new Parser<TerrorAttack>();
 
-            Parser.Setup(f => f.Flight11)
+            Parser.SetupOption(f => f.Flight11)
                 .As("flight11");
 
-            Parser.Setup(f => f.Flight175)
+            Parser.SetupOption(f => f.Flight175)
                 .As("flight175")
                 .SetDefault(DateTime.Parse("9/11/2001 9:03 am"));
 
-            Parser.Setup(o => o.Flight77)
-                .WithoutName(0);
+            Parser.SetupValue(o => o.Flight77)
+                .As(0);
 
-            Parser.Setup(o => o.Flight93)
-                .WithoutName(1)
+            Parser.SetupValue(o => o.Flight93)
+                .As(1)
                 .SetDefault(DateTime.Parse("9/11/2001 10:07 am"));
         }
 

@@ -36,7 +36,7 @@ namespace ArgumentParser
 
             try
             {
-                parser.Setup(o => o.Value)
+                parser.SetupOption(o => o.Value)
                     .As("name@");
             }
             catch (InvalidOptionNameException e)

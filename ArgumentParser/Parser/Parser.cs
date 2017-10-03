@@ -74,14 +74,19 @@ namespace ArgumentParser
             memberInfo.SetValue(options, value);
         }
 
-        public IFluentCommandBuilder Setup(string name)
+        public IFluentCommandBuilder SetupCommand(string name)
         {
-            return _argumentSpecifications.Setup(name);
+            return _argumentSpecifications.SetupCommand(name);
         }
 
-        public IFluentOptionTypeBuilder<TValue> Setup<TValue>(Expression<Func<TOptions, TValue>> selector)
+        public IFluentOptionBuilder<TValue> SetupOption<TValue>(Expression<Func<TOptions, TValue>> selector)
         {
-            return _argumentSpecifications.Setup(selector);
+            return _argumentSpecifications.SetupOption(selector);
+        }
+
+        public IFluentValueBuilder<TValue> SetupValue<TValue>(Expression<Func<TOptions, TValue>> selector)
+        {
+            return _argumentSpecifications.SetupValue(selector);
         }
     }
 }
