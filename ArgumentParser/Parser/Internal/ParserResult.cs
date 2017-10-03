@@ -1,3 +1,5 @@
+using ArgumentParser.Api;
+
 namespace ArgumentParser.Internal
 {
     internal class ParserResult<TOptions> : IParserResult<TOptions>

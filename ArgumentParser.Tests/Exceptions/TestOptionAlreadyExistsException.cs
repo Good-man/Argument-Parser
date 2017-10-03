@@ -14,11 +14,11 @@ namespace ArgumentParser
         [TestCategory("DuplicateName")]
         public void SyntaxBuilder_DuplicateName_ExpectOptionAlreadyExistsException()
         {
-            var syntaxBuilder = new SyntaxBuilder<Options>();
-            syntaxBuilder.Setup(o => o.Value1).As('o');
+            var syntaxBuilder = new ArgumentSpecifications<Options>();
+            syntaxBuilder.SetupOption(o => o.Value1).As('o');
             try
             {
-                syntaxBuilder.Setup(o => o.Value2).As('o');
+                syntaxBuilder.SetupOption(o => o.Value2).As('o');
             }
             catch (OptionAlreadyExistsException e)
             {
@@ -33,12 +33,12 @@ namespace ArgumentParser
         public void Parser_DuplicateName_ExpectOptionAlreadyExistsException()
         {
             var parser = new Parser<Options>();
-            parser.Setup(o => o.Value1)
+            parser.SetupOption(o => o.Value1)
                 .As('o');
             try
             {
                 // add duplicate option named 'o'
-                parser.Setup(o => o.Value2)
+                parser.SetupOption(o => o.Value2)
                     .As('o');
             }
             catch (OptionAlreadyExistsException e)

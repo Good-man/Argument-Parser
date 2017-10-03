@@ -1,4 +1,6 @@
-﻿namespace ArgumentParser
+﻿using System;
+
+namespace ArgumentParser.Api
 {
     public interface IParserResult<out TOptions>
     {

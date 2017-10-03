@@ -21,11 +21,11 @@ namespace ArgumentParser
         {
             _parser = new Parser<Options>();
 
-            _parser.Setup(o => o.OptionA)
+            _parser.SetupOption(o => o.OptionA)
                 .As('a');
-            _parser.Setup(o => o.OptionB)
+            _parser.SetupOption(o => o.OptionB)
                 .As('b');
-            _parser.Setup(o => o.OptionC)
+            _parser.SetupOption(o => o.OptionC)
                 .As('c');
         }
 

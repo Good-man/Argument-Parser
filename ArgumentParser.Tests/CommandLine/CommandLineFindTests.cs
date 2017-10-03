@@ -1,4 +1,3 @@
-using System.Reflection;
 using ArgumentParser.Internal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

@@ -18,9 +18,9 @@ namespace ArgumentParser
         public void TestInit()
         {
             _parser = new Parser<Options>();
-            _parser.Setup("command");
+            _parser.SetupCommand("command");
 
-            _parser.Setup(o => o.SomeOption)
+            _parser.SetupOption(o => o.SomeOption)
                 .As("option");
         }
 

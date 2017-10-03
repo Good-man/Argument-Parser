@@ -32,7 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>ConsoleApp.Usage.Declarative.Program</StartupObject>
+    <StartupObject>ConsoleApp.Usage.Fluent.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -45,9 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandLine.cs" />
-    <Compile Include="Declarative Usage.cs" />
-    <Compile Include="Fluent Usage.cs" />
+    <Compile Include="CommandLineUtil.cs" />
+    <Compile Include="Declarative\Program.cs" />
+    <Compile Include="Fluent\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

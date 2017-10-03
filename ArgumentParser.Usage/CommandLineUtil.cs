@@ -1,15 +1,11 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
-using ArgumentParser;
-using ArgumentParser.Internal;
 
 namespace ConsoleApp.Usage
 {
-    internal class CommandLine
+    internal class CommandLineUtil
     {
         [DllImport("shell32.dll", SetLastError = true)]
         internal static extern IntPtr CommandLineToArgvW(

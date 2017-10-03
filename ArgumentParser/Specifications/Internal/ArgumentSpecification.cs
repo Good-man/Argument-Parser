@@ -24,7 +24,7 @@ namespace ArgumentParser.Internal
                 if (!keyChangingEventArgs.Cancel)
                 {
                     _longName = value;
-                    OnKeyChanged(new NameChangedEventArgs(_longName, this));
+                    OnKeyChanged(new KeyChangedEventArgs(_longName, this));
                 }
                 else if (keyChangingEventArgs.Exception != null)
                 {
@@ -43,7 +43,7 @@ namespace ArgumentParser.Internal
                 if (!keyChangingEventArgs.Cancel)
                 {
                     _shortName = value;
-                    OnKeyChanged(new NameChangedEventArgs(_shortName, this));
+                    OnKeyChanged(new KeyChangedEventArgs(_shortName, this));
                 }
                 else if (keyChangingEventArgs.Exception != null)
                 {
@@ -52,11 +52,11 @@ namespace ArgumentParser.Internal
             }
         }
 
-        public int Index { get; internal set; }
+        public int Index { get; set; }
 
-        public string Description { get; protected set; }
-        public bool Required { get; protected set; }
-        public object DefaultValue { get; protected set; }
+        public string Description { get; set; }
+        public bool Required { get; set; }
+        public object DefaultValue { get; set; }
         public virtual bool HasName => HasLongName | HasShortName;
         public bool HasLongName => !string.IsNullOrWhiteSpace(LongName);
         public bool HasShortName => ShortName != default(char);
@@ -64,16 +64,16 @@ namespace ArgumentParser.Internal
         public MemberInfo MemberInfo { get; }
 
         public event EventHandler<KeyChangingEventArgs> KeyChanging;
-        public event EventHandler<NameChangedEventArgs> KeyChanged;
+        public event EventHandler<KeyChangedEventArgs> KeyChanged;
         
         private void OnKeyChanging(KeyChangingEventArgs keyChangingEventArgs)
         {
             KeyChanging?.Invoke(this, keyChangingEventArgs);
         }
 
-        private void OnKeyChanged(NameChangedEventArgs nameChangedEventArgs)
+        private void OnKeyChanged(KeyChangedEventArgs keyChangedEventArgs)
         {
-            KeyChanged?.Invoke(this, nameChangedEventArgs);
+            KeyChanged?.Invoke(this, keyChangedEventArgs);
         }
     }
 }

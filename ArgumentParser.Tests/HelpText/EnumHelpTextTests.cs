@@ -11,9 +11,10 @@ namespace ArgumentParser
         [TestMethod]
         public void Enum_DisplayHelp_DefaultStyle()
         {
-            var syntaxBuilder = new SyntaxBuilder<Options>();
-            syntaxBuilder.Setup(o => o.MyEnum)
-                .WithoutName(0)
+            var syntaxBuilder = new ArgumentSpecifications<Options>();
+            syntaxBuilder.ReadAttributes();
+            syntaxBuilder.SetupValue(o => o.MyEnum)
+                .As(0)
                 .SetDefault(MyEnum.OptionA)
                 .WithDescription("Enum option description");
             var helpText = new HelpTextInternal(syntaxBuilder.GetSpecifications());

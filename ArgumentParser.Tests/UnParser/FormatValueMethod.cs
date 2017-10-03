@@ -47,7 +47,7 @@ namespace ArgumentParser
         [ExpectedException(typeof(ArgumentNullException))]
         public void FormatRequiredArgumentWithoutDefault()
         {
-            var str = UnParser.FormatValue(null, true, null);
+            UnParser.FormatValue(null, true, null);
         }
 
         [TestMethod]

@@ -10,11 +10,12 @@ namespace ArgumentParser
 {
     public class Parser<TOptions> : IFluentSyntaxBuilder<TOptions>, IParser<TOptions> where TOptions : new()
     {
-        private readonly SyntaxBuilder<TOptions> _syntaxBuilder;
+        private readonly ArgumentSpecifications<TOptions> _argumentSpecifications;
 
         public Parser()
         {
-            _syntaxBuilder = new SyntaxBuilder<TOptions>();
+            _argumentSpecifications = new ArgumentSpecifications<TOptions>();
+            _argumentSpecifications.ReadAttributes();
         }
 
         public IParserResult<TOptions> Parse(IEnumerable<string> args)
@@ -22,7 +23,7 @@ namespace ArgumentParser
             var commandLine = CommandLine.Parse(args);
             var parsedOptions = new TOptions();
 
-            var commands = _syntaxBuilder.GetSpecifications<CommandSpecification>().ToArray();
+            var commands = _argumentSpecifications.GetSpecifications<CommandSpecification>().ToArray();
             foreach (var commandSpecification in commands)
             {
                 var argument = commandLine.Find(commandSpecification);
@@ -31,7 +32,7 @@ namespace ArgumentParser
                 commandLine.Remove(argument);
             }
 
-            var options = _syntaxBuilder
+            var options = _argumentSpecifications
                 .GetSpecifications<ArgumentSpecification>()
                 .Except(commands)
                 .Where(o => o.HasName)
@@ -44,7 +45,7 @@ namespace ArgumentParser
                     commandLine.Remove(argument);
             }
 
-            var valueSpecifications = _syntaxBuilder
+            var valueSpecifications = _argumentSpecifications
                 .GetSpecifications<ArgumentSpecification>()
                 .Except(commands)
                 .Except(options)
@@ -73,14 +74,19 @@ namespace ArgumentParser
             memberInfo.SetValue(options, value);
         }
 
-        public IFluentCommandBuilder Setup(string name)
+        public IFluentCommandBuilder SetupCommand(string name)
         {
-            return _syntaxBuilder.Setup(name);
+            return _argumentSpecifications.SetupCommand(name);
         }
 
-        public IFluentOptionTypeBuilder<TValue> Setup<TValue>(Expression<Func<TOptions, TValue>> selector)
+        public IFluentOptionBuilder<TValue> SetupOption<TValue>(Expression<Func<TOptions, TValue>> selector)
         {
-            return _syntaxBuilder.Setup(selector);
+            return _argumentSpecifications.SetupOption(selector);
+        }
+
+        public IFluentValueBuilder<TValue> SetupValue<TValue>(Expression<Func<TOptions, TValue>> selector)
+        {
+            return _argumentSpecifications.SetupValue(selector);
         }
     }
 }

@@ -67,6 +67,7 @@
     <Compile Include="Exceptions\TestOptionAlreadyExistsException.cs" />
     <Compile Include="Parser.Parse\ParseSingleDashWithMultipeLetters.cs" />
     <Compile Include="Parser.Parse\TestParseOptionAssignmentValue.cs" />
+    <Compile Include="Parser.Parse\EnumerableTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SyntaxBuilder\SyntaxBuilderTest.cs" />
     <Compile Include="UnParser\AssignmentOperatorTestCase.cs" />

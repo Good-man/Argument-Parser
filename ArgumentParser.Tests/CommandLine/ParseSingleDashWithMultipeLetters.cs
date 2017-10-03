@@ -7,13 +7,6 @@ namespace ArgumentParser
     [TestCategory("CommandLine.Parse")]
     public class ParseSingleDashWithMultipeLetters2
     {
-        private class Options
-        {
-            public bool OptionA { get; set; }
-            public bool OptionB { get; set; }
-            public bool OptionC { get; set; }
-        }
-        
         [TestMethod]
         public void Parse_DashABC_ReturnsThreeArguments()
         {
@@ -26,6 +19,5 @@ namespace ArgumentParser
             var third = second.Next;
             Assert.AreEqual("c", third.Value.Name);
         }
-
     }
 }
