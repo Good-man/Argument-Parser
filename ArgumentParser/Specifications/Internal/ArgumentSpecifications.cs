@@ -30,7 +30,12 @@ namespace ArgumentParser.Internal
 
         public IFluentOptionBuilder<TValue> SetupOption<TValue>(Expression<Func<TOptions, TValue>> selector)
         {
-            var memberInfo = ((MemberExpression) selector.Body).Member;
+            var memberInfo = ((MemberExpression)selector.Body).Member;
+            return SetupOption<TValue>(memberInfo);
+        }
+
+        private IFluentOptionBuilder<TValue> SetupOption<TValue>(MemberInfo memberInfo)
+        {
             if (ContainsKey(memberInfo))
             {
                 var builder = this[memberInfo] as OptionSpecification<TValue>;
@@ -47,7 +52,12 @@ namespace ArgumentParser.Internal
 
         public IFluentValueBuilder<TValue> SetupValue<TValue>(Expression<Func<TOptions, TValue>> selector)
         {
-            var memberInfo = ((MemberExpression) selector.Body).Member;
+            var memberInfo = ((MemberExpression)selector.Body).Member;
+            return SetupValue<TValue>(memberInfo);
+        }
+
+        private IFluentValueBuilder<TValue> SetupValue<TValue>(MemberInfo memberInfo)
+        {
             if (ContainsKey(memberInfo))
             {
                 var builder = this[memberInfo] as ValueSpecification<TValue>;
@@ -77,6 +87,7 @@ namespace ArgumentParser.Internal
         {
             ReadCommandAttributes();
             ReadOptionAttributes();
+            ReadValueAttributes();
         }
 
         internal void ValidateName(string name)
@@ -123,8 +134,7 @@ namespace ArgumentParser.Internal
             {
                 var memberType = memberInfo.GetMemberType();
                 var setupMethod = GetType()
-                    .GetMethods(BindingFlags.Instance | BindingFlags.NonPublic)
-                    .Where(m => m.Name == "Setup")
+                    .GetMethods(BindingFlags.Instance | BindingFlags.NonPublic).Where(m => m.Name == "SetupOption")
                     .Select(m => new
                     {
                         Method = m,
@@ -134,9 +144,55 @@ namespace ArgumentParser.Internal
                     .Select(x => x.Method)
                     .Single();
                 var genericSetup = setupMethod.MakeGenericMethod(memberType);
-                var argumentSpecification =
-                    genericSetup.Invoke(this, new object[] {memberInfo}) as ArgumentSpecification;
-                // TODO: set properties based on attributes
+                var argumentSpecification = (ArgumentSpecification)genericSetup.Invoke(this, new object[] { memberInfo });
+
+                var attribute = optionAttributes[memberInfo];
+
+                var shortName = attribute.ShortName;
+                var longName = attribute.LongName;
+                var defaultValue = attribute.DefaultValue;
+                var description = attribute.Description;
+                var required = attribute.Required;
+
+                argumentSpecification.ShortName = shortName;
+                argumentSpecification.LongName = longName;
+                argumentSpecification.DefaultValue = defaultValue;
+                argumentSpecification.Description = description;
+                argumentSpecification.Required = required;
+            }
+        }
+
+        private void ReadValueAttributes()
+        {
+            var valueAttributes = typeof(TOptions).GetValueAttributes();
+            foreach (var memberInfo in valueAttributes.Keys)
+            {
+                var memberType = memberInfo.GetMemberType();
+                var setupMethod = GetType()
+                    .GetMethods(BindingFlags.Instance | BindingFlags.NonPublic)
+                    .Where(m => m.Name == "SetupValue")
+                    .Select(m => new
+                    {
+                        Method = m,
+                        Params = m.GetParameters()
+                    })
+                    .Where(x => x.Params.Length == 1 && x.Params[0].ParameterType == typeof(MemberInfo))
+                    .Select(x => x.Method)
+                    .Single();
+                var genericSetup = setupMethod.MakeGenericMethod(memberType);
+                var argumentSpecification = (ArgumentSpecification) genericSetup.Invoke(this, new object[] { memberInfo });
+
+                var attribute = valueAttributes[memberInfo];
+
+                var index = attribute.Index;
+                var defaultValue = attribute.DefaultValue;
+                var description = attribute.Description;
+                var required = attribute.Required;
+
+                argumentSpecification.Index = index;
+                argumentSpecification.DefaultValue = defaultValue;
+                argumentSpecification.Description = description;
+                argumentSpecification.Required = required;
             }
         }
     }

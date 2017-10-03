@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 namespace ConsoleApp.Usage
 {
-    internal class CommandLine
+    internal class CommandLineUtil
     {
         [DllImport("shell32.dll", SetLastError = true)]
         internal static extern IntPtr CommandLineToArgvW(

@@ -20,5 +20,14 @@ namespace ArgumentParser.Internal
                 select new { Key = memberInfo, Value = argumentAttribute }).ToDictionary(x => x.Key, x => x.Value);
             return membersWithArgumentAttributes;
         }
+
+        public static IDictionary<MemberInfo, ValueAttribute> GetValueAttributes(this Type type)
+        {
+            var membersWithArgumentAttributes =
+            (from memberInfo in type.GetMembers().Where(m => m is FieldInfo | m is PropertyInfo)
+                from argumentAttribute in memberInfo.GetCustomAttributes<ValueAttribute>(true)
+                select new { Key = memberInfo, Value = argumentAttribute }).ToDictionary(x => x.Key, x => x.Value);
+            return membersWithArgumentAttributes;
+        }
     }
 }

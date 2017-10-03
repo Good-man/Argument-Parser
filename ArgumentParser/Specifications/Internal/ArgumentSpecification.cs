@@ -52,11 +52,11 @@ namespace ArgumentParser.Internal
             }
         }
 
-        public int Index { get; internal set; }
+        public int Index { get; set; }
 
-        public string Description { get; protected set; }
-        public bool Required { get; protected set; }
-        public object DefaultValue { get; protected set; }
+        public string Description { get; set; }
+        public bool Required { get; set; }
+        public object DefaultValue { get; set; }
         public virtual bool HasName => HasLongName | HasShortName;
         public bool HasLongName => !string.IsNullOrWhiteSpace(LongName);
         public bool HasShortName => ShortName != default(char);
