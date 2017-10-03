@@ -4,9 +4,6 @@
 ***
 Argument-Parser is a .NET library for parsing command line arguments.
 
-*Supported Syntax*  
-`[-|--|/][name|letter][toggle][=|:| ][value]`
-
 # Getting Started
 To get started, clone or download the source and import the `ArgumentParser` namespace.
 
@@ -82,3 +79,9 @@ class Program
     }
 }
 ```
+
+
+*Supported Syntax*  
+`[-|--|/][name|letter][toggle][=|:| ][value]`
+
+See the [Supported Syntax](https://github.com/Good-man/Argument-Parser/wiki/Supported-Syntax) wiki page for more detail.
