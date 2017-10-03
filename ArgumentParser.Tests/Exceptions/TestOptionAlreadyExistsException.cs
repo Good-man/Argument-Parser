@@ -10,17 +10,18 @@ namespace ArgumentParser
     public class TestOptionAlreadyExistsException
     {
         [TestMethod]
-        [ExpectedException(typeof(OptionAlreadyExistsException))]
+        [ExpectedException(typeof(DuplicateOptionException))]
         [TestCategory("DuplicateName")]
         public void SyntaxBuilder_DuplicateName_ExpectOptionAlreadyExistsException()
         {
             var syntaxBuilder = new ArgumentSpecifications<Options>();
             syntaxBuilder.SetupOption(o => o.Value1).As('o');
+            syntaxBuilder.SetupOption(o => o.Value2).As('o');
             try
             {
-                syntaxBuilder.SetupOption(o => o.Value2).As('o');
+                syntaxBuilder.Validate();
             }
-            catch (OptionAlreadyExistsException e)
+            catch (DuplicateOptionException e)
             {
                 Assert.AreEqual('o', e.Key);
                 throw;
@@ -28,7 +29,7 @@ namespace ArgumentParser
         }
 
         [TestMethod]
-        [ExpectedException(typeof(OptionAlreadyExistsException))]
+        [ExpectedException(typeof(DuplicateOptionException))]
         [TestCategory("DuplicateName")]
         public void Parser_DuplicateName_ExpectOptionAlreadyExistsException()
         {
@@ -41,7 +42,7 @@ namespace ArgumentParser
                 parser.SetupOption(o => o.Value2)
                     .As('o');
             }
-            catch (OptionAlreadyExistsException e)
+            catch (DuplicateOptionException e)
             {
                 Assert.AreEqual('o', e.Key);
                 throw;

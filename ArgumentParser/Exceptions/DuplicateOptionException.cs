@@ -2,11 +2,11 @@
 
 namespace ArgumentParser
 {
-    public class OptionAlreadyExistsException : Exception
+    public class DuplicateOptionException : Exception
     {
         public object Key { get; }
 
-        public OptionAlreadyExistsException(object key)
+        public DuplicateOptionException(object key)
         {
             Key = key;
         }

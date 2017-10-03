@@ -22,8 +22,6 @@ namespace ArgumentParser.Internal
             }
             ValidateName(name);
             var commandBuilder = new CommandSpecification(name);
-            commandBuilder.KeyChanging += ArgumentSpecification_KeyChanging;
-            commandBuilder.KeyChanged += ArgumentSpecification_KeyChanged;
             this[name] = commandBuilder;
             return commandBuilder;
         }
@@ -44,8 +42,6 @@ namespace ArgumentParser.Internal
                 Remove(memberInfo);
             }
             var optionBuilder = new OptionSpecification<TValue>(memberInfo);
-            optionBuilder.KeyChanging += ArgumentSpecification_KeyChanging;
-            optionBuilder.KeyChanged += ArgumentSpecification_KeyChanged;
             this[memberInfo] = optionBuilder;
             return optionBuilder;
         }
@@ -66,8 +62,6 @@ namespace ArgumentParser.Internal
                 Remove(memberInfo);
             }
             var valueSpecification = new ValueSpecification<TValue>(memberInfo);
-            valueSpecification.KeyChanging += ArgumentSpecification_KeyChanging;
-            valueSpecification.KeyChanged += ArgumentSpecification_KeyChanged;
             this[memberInfo] = valueSpecification;
             return valueSpecification;
         }
@@ -94,27 +88,6 @@ namespace ArgumentParser.Internal
         {
             if (!Regex.IsMatch(name, $"^{Argument.NamePattern}$"))
                 throw new InvalidOptionNameException(name);
-        }
-
-        private void ArgumentSpecification_KeyChanged(object sender, KeyChangedEventArgs e)
-        {
-            var key = e.Key;
-            if (ContainsKey(key))
-                Remove(key);
-            Add(key, e.ArgumentSpecification);
-        }
-
-        private void ArgumentSpecification_KeyChanging(object sender, KeyChangingEventArgs e)
-        {
-            var key = e.Key;
-            if (ContainsKey(key))
-            {
-                e.Cancel = true;
-                e.Exception = new OptionAlreadyExistsException(key);
-            }
-            var name = key as string;
-            if (name != null)
-                ValidateName(name);
         }
 
         private void ReadCommandAttributes()
@@ -180,7 +153,7 @@ namespace ArgumentParser.Internal
                     .Select(x => x.Method)
                     .Single();
                 var genericSetup = setupMethod.MakeGenericMethod(memberType);
-                var argumentSpecification = (ArgumentSpecification) genericSetup.Invoke(this, new object[] { memberInfo });
+                var argumentSpecification = (ArgumentSpecification)genericSetup.Invoke(this, new object[] { memberInfo });
 
                 var attribute = valueAttributes[memberInfo];
 
@@ -193,6 +166,17 @@ namespace ArgumentParser.Internal
                 argumentSpecification.DefaultValue = defaultValue;
                 argumentSpecification.Description = description;
                 argumentSpecification.Required = required;
+            }
+        }
+
+        public void Validate()
+        {
+            var dups = Values.GroupBy(s => s.LongName).Where(g => g.Count() > 1).ToArray();
+            var hasDups = dups.Any();
+            if (hasDups)
+            {
+                var firstDup = dups.First();
+                throw new DuplicateOptionException(firstDup.Key);
             }
         }
     }

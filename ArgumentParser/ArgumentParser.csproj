@@ -60,9 +60,7 @@
     <Compile Include="HelpText\HelpText.cs" />
     <Compile Include="HelpText\Internal\HelpTextInternal.cs" />
     <Compile Include="Internal\ReflectionHelpers.cs" />
-    <Compile Include="Specifications\Internal\KeyChangedEventArgs.cs" />
-    <Compile Include="Specifications\Internal\KeyChangingEventArgs.cs" />
-    <Compile Include="Exceptions\OptionAlreadyExistsException.cs" />
+    <Compile Include="Exceptions\DuplicateOptionException.cs" />
     <Compile Include="HelpText\Internal\ArgumentHelpText.cs" />
     <Compile Include="Parser\Internal\ParserResult.cs" />
     <Compile Include="Internal\StringConversionExtensions.cs" />

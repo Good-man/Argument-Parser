@@ -38,5 +38,12 @@ namespace ArgumentParser.Internal
             }
             throw new ArgumentOutOfRangeException(nameof(memberInfo), memberInfo, "Only property and field members are supported.");
         }
+
+        internal static object GetDefault(this Type type)
+        {
+            return type.IsValueType 
+                ? Activator.CreateInstance(type) 
+                : null;
+        }
     }
 }
