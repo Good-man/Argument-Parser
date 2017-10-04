@@ -64,38 +64,38 @@ namespace ArgumentParser
             return new ParserResult<TOptions>(parsedOptions);
         }
 
+        //if (typeof(IEnumerable).IsAssignableFrom(type) && type.IsGenericType)
+        //{
+        //    var listItemType = type.GetGenericArguments()[0];
+        //    object value = null;
+        //    if (argument != null)
+        //        value = argument.ParseValue(listItemType);
+        //    var list = memberInfo.GetValue(options);
+        //    if (list == null)
+        //    {
+        //        var listRef = typeof(List<>);
+        //        Type[] listParam = { listItemType };
+        //        list = Activator.CreateInstance(listRef.MakeGenericType(listParam));
+        //        memberInfo.SetValue(options, list);
+        //    }
+
+        //    list.GetType().GetMethod("Add").Invoke(list, new[] { value
+        //    });
+        //}
+
         private void SetMember(IArgumentSpecification specification, TOptions options, Argument argument)
         {
             var memberInfo = specification.MemberInfo;
             var type = memberInfo.GetMemberType();
-            if (typeof(IEnumerable).IsAssignableFrom(type) && type.IsGenericType)
-            {
-                var listItemType = type.GetGenericArguments()[0];
-                object value = null;
-                if (argument != null)
-                    value = argument.ParseValue(listItemType);
-                var list = memberInfo.GetValue(options);
-                if (list == null)
-                {
-                    var listRef = typeof(List<>);
-                    Type[] listParam = { listItemType };
-                    list = Activator.CreateInstance(listRef.MakeGenericType(listParam));
-                    memberInfo.SetValue(options, list);
-                }
-                
-                list.GetType().GetMethod("Add").Invoke(list, new[] { value });
-            }
-            else
-            {
-                var hasDefault = specification.HasDefault;
-                var defaultValue = specification.DefaultValue;
-                object value = null;
-                if (argument != null)
-                    value = argument.ParseValue(type);
-                if ((value == null) & hasDefault)
-                    value = defaultValue;
-                memberInfo.SetValue(options, value);
-            }
+
+            var hasDefault = specification.HasDefault;
+            var defaultValue = specification.DefaultValue;
+            object value = null;
+            if (argument != null)
+                value = argument.ParseValue(type);
+            if ((value == null) & hasDefault)
+                value = defaultValue;
+            memberInfo.SetValue(options, value);
         }
 
         public IFluentCommandBuilder SetupCommand(string name)
