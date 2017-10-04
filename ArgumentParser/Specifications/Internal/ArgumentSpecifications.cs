@@ -20,7 +20,7 @@ namespace ArgumentParser.Internal
                     return builder;
                 Remove(name);
             }
-            ValidateName(name);
+            ArgumentSpecification.ValidateName(name);
             var commandBuilder = new CommandSpecification(name);
             this[name] = commandBuilder;
             return commandBuilder;
@@ -83,13 +83,7 @@ namespace ArgumentParser.Internal
             ReadOptionAttributes();
             ReadValueAttributes();
         }
-
-        internal void ValidateName(string name)
-        {
-            if (!Regex.IsMatch(name, $"^{Argument.NamePattern}$"))
-                throw new InvalidOptionNameException(name);
-        }
-
+        
         private void ReadCommandAttributes()
         {
             var commandAttributes = typeof(TOptions).GetCommandAttributes();
@@ -171,7 +165,10 @@ namespace ArgumentParser.Internal
 
         public void Validate()
         {
-            var dups = Values.GroupBy(s => s.LongName).Where(g => g.Count() > 1).ToArray();
+            var x = Values.Where(a => a.HasLongName).GroupBy(a => (object) a.LongName).Where(g => g.Count() > 1);
+            var y = Values.Where(a => a.HasShortName).GroupBy(a => (object) a.ShortName).Where(g => g.Count() > 1);
+            var dups = x.Union(y).ToArray();
+
             var hasDups = dups.Any();
             if (hasDups)
             {

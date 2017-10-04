@@ -88,5 +88,10 @@ namespace ArgumentParser
         {
             return _argumentSpecifications.SetupValue(selector);
         }
+
+        public void Validate()
+        {
+            _argumentSpecifications.Validate();
+        }
     }
 }

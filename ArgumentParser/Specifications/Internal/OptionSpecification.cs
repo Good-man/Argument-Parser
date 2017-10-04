@@ -17,6 +17,7 @@ namespace ArgumentParser.Internal
 
         IFluentOptionBuilder<TValue> IFluentOptionBuilder<TValue>.As(string longName)
         {
+            ValidateName(longName);
             LongName = longName;
             return this;
         }
@@ -31,6 +32,7 @@ namespace ArgumentParser.Internal
 
         IFluentOptionBuilder<TValue> IFluentOptionBuilder<TValue>.As(char shortName)
         {
+            ValidateName(shortName);
             ShortName = shortName;
             return this;
         }

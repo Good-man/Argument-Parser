@@ -18,7 +18,7 @@ namespace ArgumentParser
             var syntaxBuilder = new ArgumentSpecifications<Options>();
             try
             {
-                syntaxBuilder.ValidateName("name@");
+                ArgumentSpecification.ValidateName("name@");
             }
             catch (InvalidOptionNameException e)
             {
@@ -36,8 +36,8 @@ namespace ArgumentParser
 
             try
             {
-                parser.SetupOption(o => o.Value)
-                    .As("name@");
+                parser.SetupOption(o => o.Value).
+                    As("name@");
             }
             catch (InvalidOptionNameException e)
             {

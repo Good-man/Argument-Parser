@@ -94,15 +94,15 @@ namespace ArgumentParser.Internal
             if (type.IsEnum)
             {
                 if (HasName && Name.Is(type))
-                    return Name.ConvertTo(type); 
+                    return Name.ConvertTo(type);
                 if (HasValue && Value.Is(type))
-                    return Value.ConvertTo(type); 
+                    return Value.ConvertTo(type);
                 return null;
             }
             if (type == typeof(bool))
             {
                 if (HasValue && Value.Is(type))
-                    return Value.ConvertTo(type); 
+                    return Value.ConvertTo(type);
                 return true;
             }
             if (type == typeof(string))

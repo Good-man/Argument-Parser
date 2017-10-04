@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using ArgumentParser.Api;
 
 namespace ArgumentParser.Internal
@@ -21,9 +22,28 @@ namespace ArgumentParser.Internal
         public bool Required { get; set; }
         public object DefaultValue { get; set; }
         public virtual bool HasName => HasLongName | HasShortName;
-        public bool HasLongName => !string.IsNullOrWhiteSpace(LongName);
+        public bool HasLongName => !String.IsNullOrWhiteSpace(LongName);
         public bool HasShortName => ShortName != default(char);
         public bool HasDefault => DefaultValue != null;
         public MemberInfo MemberInfo { get; }
+
+        internal void Validate()
+        {
+            if (HasShortName)
+                ValidateName(ShortName);
+            if (HasLongName)
+                ValidateName(LongName);
+        }
+
+        internal static void ValidateName(char name)
+        {
+            ValidateName(name.ToString());
+        }
+
+        internal static void ValidateName(string name)
+        {
+            if (!Regex.IsMatch(name, $"^{Argument.NamePattern}$"))
+                throw new InvalidOptionNameException(name);
+        }
     }
 }

@@ -36,11 +36,12 @@ namespace ArgumentParser
             var parser = new Parser<Options>();
             parser.SetupOption(o => o.Value1)
                 .As('o');
+            // add duplicate option named 'o'
+            parser.SetupOption(o => o.Value2)
+                .As('o');
             try
             {
-                // add duplicate option named 'o'
-                parser.SetupOption(o => o.Value2)
-                    .As('o');
+                parser.Validate();
             }
             catch (DuplicateOptionException e)
             {
