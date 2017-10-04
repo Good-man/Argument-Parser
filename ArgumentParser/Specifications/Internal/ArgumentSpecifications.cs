@@ -83,7 +83,7 @@ namespace ArgumentParser.Internal
             ReadOptionAttributes();
             ReadValueAttributes();
         }
-        
+
         private void ReadCommandAttributes()
         {
             var commandAttributes = typeof(TOptions).GetCommandAttributes();
@@ -165,15 +165,16 @@ namespace ArgumentParser.Internal
 
         public void Validate()
         {
-            var x = Values.Where(a => a.HasLongName).GroupBy(a => (object) a.LongName).Where(g => g.Count() > 1);
-            var y = Values.Where(a => a.HasShortName).GroupBy(a => (object) a.ShortName).Where(g => g.Count() > 1);
-            var dups = x.Union(y).ToArray();
+            var x = Values.Where(a => a.HasLongName).GroupBy(a => (object)a.LongName).Where(g => g.Count() > 1);
+            var y = Values.Where(a => a.HasShortName).GroupBy(a => (object)a.ShortName).Where(g => g.Count() > 1);
+            var z = Values.Where(a => a.GetType().IsGenericTypeOf(typeof(ValueSpecification<>))).GroupBy(a => (object)a.Index).Where(g => g.Count() > 1);
+            var dups = x.Union(y).Union(z).ToArray();
 
             var hasDups = dups.Any();
             if (hasDups)
             {
                 var firstDup = dups.First();
-                throw new DuplicateOptionException(firstDup.Key);
+                throw new DuplicateKeyException(firstDup.Key);
             }
         }
     }

@@ -45,5 +45,10 @@ namespace ArgumentParser.Internal
                 ? Activator.CreateInstance(type) 
                 : null;
         }
+
+        internal static bool IsGenericTypeOf(this Type t, Type genericDefinition)
+        {
+            return t.IsGenericType && genericDefinition.IsGenericType && t.GetGenericTypeDefinition() == genericDefinition.GetGenericTypeDefinition();
+        }
     }
 }

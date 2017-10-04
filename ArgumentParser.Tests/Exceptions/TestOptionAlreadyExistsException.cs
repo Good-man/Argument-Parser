@@ -10,9 +10,9 @@ namespace ArgumentParser
     public class TestOptionAlreadyExistsException
     {
         [TestMethod]
-        [ExpectedException(typeof(DuplicateOptionException))]
-        [TestCategory("DuplicateName")]
-        public void SyntaxBuilder_DuplicateName_ExpectOptionAlreadyExistsException()
+        [ExpectedException(typeof(DuplicateKeyException))]
+        [TestCategory("DuplicateKey")]
+        public void SyntaxBuilder_DuplicateName_ThrowsException()
         {
             var syntaxBuilder = new ArgumentSpecifications<Options>();
             syntaxBuilder.SetupOption(o => o.Value1).As('o');
@@ -21,7 +21,7 @@ namespace ArgumentParser
             {
                 syntaxBuilder.Validate();
             }
-            catch (DuplicateOptionException e)
+            catch (DuplicateKeyException e)
             {
                 Assert.AreEqual('o', e.Key);
                 throw;
@@ -29,23 +29,58 @@ namespace ArgumentParser
         }
 
         [TestMethod]
-        [ExpectedException(typeof(DuplicateOptionException))]
-        [TestCategory("DuplicateName")]
-        public void Parser_DuplicateName_ExpectOptionAlreadyExistsException()
+        [ExpectedException(typeof(DuplicateKeyException))]
+        [TestCategory("DuplicateKey")]
+        public void Parser_DuplicateName_ThrowsException()
         {
             var parser = new Parser<Options>();
-            parser.SetupOption(o => o.Value1)
-                .As('o');
-            // add duplicate option named 'o'
-            parser.SetupOption(o => o.Value2)
-                .As('o');
+            parser.SetupOption(o => o.Value1).As('o');
+            parser.SetupOption(o => o.Value2).As('o');
             try
             {
                 parser.Validate();
             }
-            catch (DuplicateOptionException e)
+            catch (DuplicateKeyException e)
             {
                 Assert.AreEqual('o', e.Key);
+                throw;
+            }
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DuplicateKeyException))]
+        [TestCategory("DuplicateKey")]
+        public void SyntaxBuilder_DuplicateIndex_ThrowsException()
+        {
+            var syntaxBuilder = new ArgumentSpecifications<Options>();
+            syntaxBuilder.SetupValue(o => o.Value1).As(0);
+            syntaxBuilder.SetupValue(o => o.Value2).As(0);
+            try
+            {
+                syntaxBuilder.Validate();
+            }
+            catch (DuplicateKeyException e)
+            {
+                Assert.AreEqual(0, e.Key);
+                throw;
+            }
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DuplicateKeyException))]
+        [TestCategory("DuplicateKey")]
+        public void Parser_DuplicateIndex_ThrowsException()
+        {
+            var parser = new Parser<Options>();
+            parser.SetupValue(o => o.Value1).As(0);
+            parser.SetupValue(o => o.Value2).As(0);
+            try
+            {
+                parser.Validate();
+            }
+            catch (DuplicateKeyException e)
+            {
+                Assert.AreEqual(0, e.Key);
                 throw;
             }
         }

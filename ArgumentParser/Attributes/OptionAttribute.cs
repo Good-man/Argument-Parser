@@ -6,10 +6,6 @@ namespace ArgumentParser
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
     public class OptionAttribute : ArgumentAttribute
     {
-        public OptionAttribute()
-        {
-        }
-            
         public OptionAttribute(string longName) : this(default(char), longName)
         {
             if (longName == null)

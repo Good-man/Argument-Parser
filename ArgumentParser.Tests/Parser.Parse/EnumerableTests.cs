@@ -21,7 +21,7 @@ namespace ArgumentParser
 
         class Options
         {
-            [Option]
+            [Value(0)]
             public IEnumerable<string> Strings { get; set; }
         }
     }

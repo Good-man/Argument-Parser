@@ -60,7 +60,7 @@
     <Compile Include="HelpText\HelpText.cs" />
     <Compile Include="HelpText\Internal\HelpTextInternal.cs" />
     <Compile Include="Internal\ReflectionHelpers.cs" />
-    <Compile Include="Exceptions\DuplicateOptionException.cs" />
+    <Compile Include="Exceptions\DuplicateKeyException.cs" />
     <Compile Include="HelpText\Internal\ArgumentHelpText.cs" />
     <Compile Include="Parser\Internal\ParserResult.cs" />
     <Compile Include="Internal\StringConversionExtensions.cs" />

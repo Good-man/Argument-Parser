@@ -5,10 +5,6 @@ namespace ArgumentParser
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
     public class ValueAttribute : ArgumentAttribute
     {
-        public ValueAttribute()
-        {
-        }
-
         public ValueAttribute(int index)
         {
             Index = index;
