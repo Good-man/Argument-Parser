@@ -22,7 +22,7 @@ namespace ArgumentParser
         class Options
         {
             [Value(0)]
-            public IEnumerable<string> Strings { get; set; }
+            public IList<string> Strings { get; set; }
         }
     }
 }

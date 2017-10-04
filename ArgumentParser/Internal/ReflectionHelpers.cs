@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 
 namespace ArgumentParser.Internal
@@ -35,6 +36,21 @@ namespace ArgumentParser.Internal
                 var fieldInfo = (FieldInfo)memberInfo;
                 fieldInfo.SetValue(obj, value);
                 return;
+            }
+            throw new ArgumentOutOfRangeException(nameof(memberInfo), memberInfo, "Only property and field members are supported.");
+        }
+
+        internal static object GetValue(this MemberInfo memberInfo, object obj)
+        {
+            if (memberInfo is PropertyInfo)
+            {
+                var propertyInfo = (PropertyInfo)memberInfo;
+                return propertyInfo.GetValue(obj);
+            }
+            if (memberInfo is FieldInfo)
+            {
+                var fieldInfo = (FieldInfo)memberInfo;
+                return fieldInfo.GetValue(obj);
             }
             throw new ArgumentOutOfRangeException(nameof(memberInfo), memberInfo, "Only property and field members are supported.");
         }
