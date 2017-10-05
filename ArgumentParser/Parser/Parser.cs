@@ -59,7 +59,12 @@ namespace ArgumentParser
                 var type = memberInfo.GetMemberType();
                 if (typeof(IEnumerable).IsAssignableFrom(type) && type.IsGenericType)
                 {
-
+                    var arguments = commandLine.FindAll(valueSpecification);
+                    foreach (var argument in arguments)
+                    {
+                        AddToMember(valueSpecification, parsedOptions, argument);
+                        commandLine.Remove(argument);
+                    }
                 }
                 else
                 {
@@ -71,6 +76,11 @@ namespace ArgumentParser
             }
 
             return new ParserResult<TOptions>(parsedOptions);
+        }
+
+        private void AddToMember(IArgumentSpecification argumentSpecification, TOptions options, Argument argument)
+        {
+            throw new NotImplementedException();
         }
 
         //if (typeof(IEnumerable).IsAssignableFrom(type) && type.IsGenericType)

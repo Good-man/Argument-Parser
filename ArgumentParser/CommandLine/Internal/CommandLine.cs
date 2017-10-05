@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -148,6 +149,35 @@ namespace ArgumentParser.Internal
             return this
                 .Where(a => a.Name == null)
                 .FirstOrDefault(a => a.Is(expectedType));
+        }
+
+        public IEnumerable<Argument> FindAll(ArgumentSpecification argumentSpecification)
+        {
+            var type = argumentSpecification.MemberInfo.GetMemberType();
+            var expectedType = type;
+            if (typeof(IEnumerable).IsAssignableFrom(type) && type.IsGenericType)
+            {
+                expectedType = type.GetGenericArguments()[0];
+            }
+
+            var first = FindFirst(argumentSpecification);
+            if (first == null)
+                return Enumerable.Empty<Argument>();
+            var list = new List<Argument> {first};
+            var current = Find(first);
+            while (true)
+            {
+                var next = current?.Next;
+                if (next == null)
+                {
+                    break;
+                }
+                current = next;
+                var argument = current.Value;
+                if (argument.HasValue & argument.Is(expectedType)) list.Add(argument);
+            }
+
+            return list;
         }
     }
 }
