@@ -66,6 +66,7 @@ namespace ArgumentParser.Internal
             return valueSpecification;
         }
 
+        [Obsolete("ArgumentSpecifications should be IEnumerable<IArgumentSpecification>")]
         internal IEnumerable<IArgumentSpecification> GetSpecifications()
         {
             return Values.Distinct();
