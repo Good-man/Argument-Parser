@@ -80,35 +80,36 @@ namespace ArgumentParser
 
         private void AddToMember(IArgumentSpecification argumentSpecification, TOptions options, Argument argument)
         {
-            throw new NotImplementedException();
+            var memberInfo = argumentSpecification.MemberInfo;
+            var type = memberInfo.GetMemberType();
+            if (typeof(IEnumerable).IsAssignableFrom(type) && type.IsGenericType)
+            {
+                var listItemType = type.GetGenericArguments()[0];
+                object value = null;
+                if (argument != null)
+                    value = argument.ParseValue(listItemType);
+                var list = memberInfo.GetValue(options);
+                if (list == null)
+                {
+                    var listRef = typeof(List<>);
+                    Type[] listParam = { listItemType };
+                    list = Activator.CreateInstance(listRef.MakeGenericType(listParam));
+                    memberInfo.SetValue(options, list);
+                }
+
+                list.GetType().GetMethod("Add").Invoke(list, new[] { value });
+            }
+            else
+                throw new NotImplementedException();
         }
 
-        //if (typeof(IEnumerable).IsAssignableFrom(type) && type.IsGenericType)
-        //{
-        //    var listItemType = type.GetGenericArguments()[0];
-        //    object value = null;
-        //    if (argument != null)
-        //        value = argument.ParseValue(listItemType);
-        //    var list = memberInfo.GetValue(options);
-        //    if (list == null)
-        //    {
-        //        var listRef = typeof(List<>);
-        //        Type[] listParam = { listItemType };
-        //        list = Activator.CreateInstance(listRef.MakeGenericType(listParam));
-        //        memberInfo.SetValue(options, list);
-        //    }
-
-        //    list.GetType().GetMethod("Add").Invoke(list, new[] { value
-        //    });
-        //}
-
-        private void SetMember(IArgumentSpecification specification, TOptions options, Argument argument)
+        private void SetMember(IArgumentSpecification argumentSpecification, TOptions options, Argument argument)
         {
-            var memberInfo = specification.MemberInfo;
+            var memberInfo = argumentSpecification.MemberInfo;
             var type = memberInfo.GetMemberType();
 
-            var hasDefault = specification.HasDefault;
-            var defaultValue = specification.DefaultValue;
+            var hasDefault = argumentSpecification.HasDefault;
+            var defaultValue = argumentSpecification.DefaultValue;
             object value = null;
             if (argument != null)
                 value = argument.ParseValue(type);
