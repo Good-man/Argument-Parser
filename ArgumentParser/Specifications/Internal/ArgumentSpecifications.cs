@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -8,21 +9,23 @@ using ArgumentParser.Api;
 
 namespace ArgumentParser.Internal
 {
-    internal class ArgumentSpecifications<TOptions> : Dictionary<object, IArgumentSpecification>,
+    internal class ArgumentSpecifications<TOptions> : IEnumerable<IArgumentSpecification>,
         IFluentSyntaxBuilder<TOptions>
     {
+        private readonly Dictionary<object, IArgumentSpecification> _argumentSpecifications = new Dictionary<object, IArgumentSpecification>();
+
         public IFluentCommandBuilder SetupCommand(string name)
         {
-            if (ContainsKey(name))
+            if (_argumentSpecifications.ContainsKey(name))
             {
-                var builder = this[name] as CommandSpecification;
+                var builder = _argumentSpecifications[name] as CommandSpecification;
                 if (builder != null)
                     return builder;
-                Remove(name);
+                _argumentSpecifications.Remove(name);
             }
             ArgumentSpecification.ValidateName(name);
             var commandBuilder = new CommandSpecification(name);
-            this[name] = commandBuilder;
+            _argumentSpecifications[name] = commandBuilder;
             return commandBuilder;
         }
 
@@ -34,15 +37,15 @@ namespace ArgumentParser.Internal
 
         private IFluentOptionBuilder<TValue> SetupOption<TValue>(MemberInfo memberInfo)
         {
-            if (ContainsKey(memberInfo))
+            if (_argumentSpecifications.ContainsKey(memberInfo))
             {
-                var builder = this[memberInfo] as OptionSpecification<TValue>;
+                var builder = _argumentSpecifications[memberInfo] as OptionSpecification<TValue>;
                 if (builder != null)
                     return builder;
-                Remove(memberInfo);
+                _argumentSpecifications.Remove(memberInfo);
             }
             var optionBuilder = new OptionSpecification<TValue>(memberInfo);
-            this[memberInfo] = optionBuilder;
+            _argumentSpecifications[memberInfo] = optionBuilder;
             return optionBuilder;
         }
 
@@ -54,28 +57,28 @@ namespace ArgumentParser.Internal
 
         private IFluentValueBuilder<TValue> SetupValue<TValue>(MemberInfo memberInfo)
         {
-            if (ContainsKey(memberInfo))
+            if (_argumentSpecifications.ContainsKey(memberInfo))
             {
-                var builder = this[memberInfo] as ValueSpecification<TValue>;
+                var builder = _argumentSpecifications[memberInfo] as ValueSpecification<TValue>;
                 if (builder != null)
                     return builder;
-                Remove(memberInfo);
+                _argumentSpecifications.Remove(memberInfo);
             }
             var valueSpecification = new ValueSpecification<TValue>(memberInfo);
-            this[memberInfo] = valueSpecification;
+            _argumentSpecifications[memberInfo] = valueSpecification;
             return valueSpecification;
         }
 
         [Obsolete("ArgumentSpecifications should be IEnumerable<IArgumentSpecification>")]
         internal IEnumerable<IArgumentSpecification> GetSpecifications()
         {
-            return Values.Distinct();
+            return _argumentSpecifications.Values.Distinct();
         }
 
         internal IEnumerable<TSpecification> GetSpecifications<TSpecification>()
             where TSpecification : IArgumentSpecification
         {
-            return Values.Distinct().OfType<TSpecification>();
+            return _argumentSpecifications.Values.Distinct().OfType<TSpecification>();
         }
 
         internal void ReadAttributes()
@@ -166,9 +169,9 @@ namespace ArgumentParser.Internal
 
         public void Validate()
         {
-            var x = Values.Where(a => a.HasLongName).GroupBy(a => (object)a.LongName).Where(g => g.Count() > 1);
-            var y = Values.Where(a => a.HasShortName).GroupBy(a => (object)a.ShortName).Where(g => g.Count() > 1);
-            var z = Values.Where(a => a.GetType().IsGenericTypeOf(typeof(ValueSpecification<>))).GroupBy(a => (object)a.Index).Where(g => g.Count() > 1);
+            var x = this.Where(a => a.HasLongName).GroupBy(a => (object)a.LongName).Where(g => g.Count() > 1);
+            var y = this.Where(a => a.HasShortName).GroupBy(a => (object)a.ShortName).Where(g => g.Count() > 1);
+            var z = this.Where(a => a.GetType().IsGenericTypeOf(typeof(ValueSpecification<>))).GroupBy(a => (object)a.Index).Where(g => g.Count() > 1);
             var dups = x.Union(y).Union(z).ToArray();
 
             var hasDups = dups.Any();
@@ -177,6 +180,16 @@ namespace ArgumentParser.Internal
                 var firstDup = dups.First();
                 throw new DuplicateKeyException(firstDup.Key);
             }
+        }
+
+        public IEnumerator<IArgumentSpecification> GetEnumerator()
+        {
+            return _argumentSpecifications.Values.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }
