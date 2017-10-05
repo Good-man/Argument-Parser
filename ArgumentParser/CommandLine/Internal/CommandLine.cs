@@ -113,12 +113,12 @@ namespace ArgumentParser.Internal
         internal static extern IntPtr CommandLineToArgvW(
             [MarshalAs(UnmanagedType.LPWStr)] string lpCmdLine, out int pNumArgs);
 
-        internal Argument Find(CommandSpecification commandSpecification)
+        internal Argument FindFirst(CommandSpecification commandSpecification)
         {
             return this.FirstOrDefault(argument => argument.Text == commandSpecification.LongName);
         }
 
-        internal Argument Find(ArgumentSpecification argumentSpecification)
+        internal Argument FindFirst(ArgumentSpecification argumentSpecification)
         {
             var expectedType = argumentSpecification.MemberInfo.GetMemberType();
             if (argumentSpecification.HasName)

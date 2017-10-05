@@ -28,7 +28,7 @@ namespace ArgumentParser
             var commands = _argumentSpecifications.GetSpecifications<CommandSpecification>().ToArray();
             foreach (var commandSpecification in commands)
             {
-                var argument = commandLine.Find(commandSpecification);
+                var argument = commandLine.FindFirst(commandSpecification);
                 if (argument == null)
                     return default(IParserResult<TOptions>);
                 commandLine.Remove(argument);
@@ -41,7 +41,7 @@ namespace ArgumentParser
                 .ToArray();
             foreach (var optionSpecification in options)
             {
-                var argument = commandLine.Find(optionSpecification);
+                var argument = commandLine.FindFirst(optionSpecification);
                 SetMember(optionSpecification, parsedOptions, argument);
                 if (argument != null)
                     commandLine.Remove(argument);
@@ -55,10 +55,19 @@ namespace ArgumentParser
                 .ToArray();
             foreach (var valueSpecification in valueSpecifications)
             {
-                var argument = commandLine.Find(valueSpecification);
-                SetMember(valueSpecification, parsedOptions, argument);
-                if (argument != null)
-                    commandLine.Remove(argument);
+                var memberInfo = valueSpecification.MemberInfo;
+                var type = memberInfo.GetMemberType();
+                if (typeof(IEnumerable).IsAssignableFrom(type) && type.IsGenericType)
+                {
+
+                }
+                else
+                {
+                    var argument = commandLine.FindFirst(valueSpecification);
+                    SetMember(valueSpecification, parsedOptions, argument);
+                    if (argument != null)
+                        commandLine.Remove(argument);
+                }
             }
 
             return new ParserResult<TOptions>(parsedOptions);
