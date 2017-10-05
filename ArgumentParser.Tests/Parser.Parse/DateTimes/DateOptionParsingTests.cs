@@ -2,7 +2,7 @@ using System;
 using ArgumentParser.Internal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace ArgumentParser
+namespace ArgumentParser.DateTimes
 {
     [TestClass]
     [TestCategory("Parser.Parse.DateTime")]

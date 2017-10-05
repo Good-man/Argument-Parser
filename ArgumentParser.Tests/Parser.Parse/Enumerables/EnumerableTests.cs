@@ -4,7 +4,7 @@ using System.Linq;
 using ArgumentParser.Internal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace ArgumentParser
+namespace ArgumentParser.Enumerables
 {
     [TestClass]
     public class EnumerableTests
@@ -17,6 +17,9 @@ namespace ArgumentParser
             var results = parser.Parse(args);
             var strings = results.Options.Strings;
             Assert.AreEqual(3, strings.Count());
+            Assert.AreEqual("one", strings[0]);
+            Assert.AreEqual("two", strings[1]);
+            Assert.AreEqual("three", strings[2]);
         }
 
         class Options
