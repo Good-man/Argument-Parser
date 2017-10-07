@@ -1,3 +1,4 @@
+using System;
 using ArgumentParser.Internal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -25,7 +26,7 @@ namespace ArgumentParser
         public void Find_SecondValueArgument_ReturnsValueArgument()
         {
             var commandLine = CommandLine.Parse(@"argument1 ""argument 2"" ""the third argument""");
-            var argument = commandLine.FindFirst(new OptionSpecification<string>(null) { Index = 1 });
+            var argument = commandLine.FindFirst(new OptionSpecification<string>(new MochPropertyInfo<string>()) { Index = 1 });
             Assert.AreEqual("argument 2", argument.Value);
         }
     }

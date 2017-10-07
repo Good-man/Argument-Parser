@@ -148,6 +148,7 @@ namespace ArgumentParser.Internal
             }
             return this
                 .Where(a => a.Name == null)
+                .Skip(argumentSpecification.Index)
                 .FirstOrDefault(a => a.Is(expectedType));
         }
 
