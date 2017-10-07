@@ -61,6 +61,7 @@
     <Compile Include="HelpText\EnumHelpTextTests.cs" />
     <Compile Include="HelpText\HelpTextTests.cs" />
     <Compile Include="Parser.Parse\DateTimes\DateOptionParsingTests.cs" />
+    <Compile Include="Parser.Parse\Enumerables\EnumerableWithOtherOptionsTests.cs" />
     <Compile Include="Parser.Parse\GitConfigProxy.cs" />
     <Compile Include="Parser.Parse\Numbers\NumberOptions.cs" />
     <Compile Include="Parser.Parse\Numbers\NumericOptionParsingTests.cs" />
@@ -68,7 +69,7 @@
     <Compile Include="Exceptions\TestOptionAlreadyExistsException.cs" />
     <Compile Include="Parser.Parse\ParseSingleDashWithMultipeLetters.cs" />
     <Compile Include="Parser.Parse\TestParseOptionAssignmentValue.cs" />
-    <Compile Include="Parser.Parse\Enumerables\EnumerableTests.cs" />
+    <Compile Include="Parser.Parse\Enumerables\BasicEnumerableTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SyntaxBuilder\SyntaxBuilderTest.cs" />
     <Compile Include="UnParser\AssignmentOperatorTestCase.cs" />

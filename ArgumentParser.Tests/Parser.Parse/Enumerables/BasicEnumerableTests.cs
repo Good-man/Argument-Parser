@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace ArgumentParser.Enumerables
 {
     [TestClass]
-    public class EnumerableTests
+    public class BasicEnumerableTests
     {
         [TestMethod]
         public void EnumerableOfStringsTest()
