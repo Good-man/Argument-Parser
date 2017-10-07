@@ -12,20 +12,22 @@ namespace ArgumentParser.Internal
     internal class ArgumentSpecifications<TOptions> : IEnumerable<IArgumentSpecification>,
         IFluentSyntaxBuilder<TOptions>
     {
-        private readonly Dictionary<object, IArgumentSpecification> _argumentSpecifications = new Dictionary<object, IArgumentSpecification>();
+
+        private readonly HashSet<IArgumentSpecification> _argumentSpecifications = new HashSet<IArgumentSpecification>();
 
         public IFluentCommandBuilder SetupCommand(string name)
         {
-            if (_argumentSpecifications.ContainsKey(name))
+            if (_argumentSpecifications.Any(s => s.LongName == name))
             {
-                var builder = _argumentSpecifications[name] as CommandSpecification;
+                var specification = _argumentSpecifications.First(s => s.LongName == name);
+                var builder = specification as CommandSpecification;
                 if (builder != null)
                     return builder;
-                _argumentSpecifications.Remove(name);
+                _argumentSpecifications.Remove(specification);
             }
             ArgumentSpecification.ValidateName(name);
             var commandBuilder = new CommandSpecification(name);
-            _argumentSpecifications[name] = commandBuilder;
+            _argumentSpecifications.Add(commandBuilder);
             return commandBuilder;
         }
 
@@ -37,15 +39,16 @@ namespace ArgumentParser.Internal
 
         private IFluentOptionBuilder<TValue> SetupOption<TValue>(MemberInfo memberInfo)
         {
-            if (_argumentSpecifications.ContainsKey(memberInfo))
+            if (_argumentSpecifications.Any(s => s.MemberInfo == memberInfo))
             {
-                var builder = _argumentSpecifications[memberInfo] as OptionSpecification<TValue>;
+                var specification = _argumentSpecifications.First(s => s.MemberInfo == memberInfo);
+                var builder = specification as OptionSpecification<TValue>;
                 if (builder != null)
                     return builder;
-                _argumentSpecifications.Remove(memberInfo);
+                _argumentSpecifications.Remove(specification);
             }
             var optionBuilder = new OptionSpecification<TValue>(memberInfo);
-            _argumentSpecifications[memberInfo] = optionBuilder;
+            _argumentSpecifications.Add(optionBuilder);
             return optionBuilder;
         }
 
@@ -57,28 +60,29 @@ namespace ArgumentParser.Internal
 
         private IFluentValueBuilder<TValue> SetupValue<TValue>(MemberInfo memberInfo)
         {
-            if (_argumentSpecifications.ContainsKey(memberInfo))
+            if (_argumentSpecifications.Any(s => s.MemberInfo == memberInfo))
             {
-                var builder = _argumentSpecifications[memberInfo] as ValueSpecification<TValue>;
+                var specification = _argumentSpecifications.First(s => s.MemberInfo == memberInfo);
+                var builder = specification as ValueSpecification<TValue>;
                 if (builder != null)
                     return builder;
-                _argumentSpecifications.Remove(memberInfo);
+                _argumentSpecifications.Remove(specification);
             }
-            var valueSpecification = new ValueSpecification<TValue>(memberInfo);
-            _argumentSpecifications[memberInfo] = valueSpecification;
-            return valueSpecification;
+            var optionBuilder = new ValueSpecification<TValue>(memberInfo);
+            _argumentSpecifications.Add(optionBuilder);
+            return optionBuilder;
         }
 
         [Obsolete("ArgumentSpecifications should be IEnumerable<IArgumentSpecification>")]
         internal IEnumerable<IArgumentSpecification> GetSpecifications()
         {
-            return _argumentSpecifications.Values.Distinct();
+            return _argumentSpecifications;
         }
 
         internal IEnumerable<TSpecification> GetSpecifications<TSpecification>()
             where TSpecification : IArgumentSpecification
         {
-            return _argumentSpecifications.Values.Distinct().OfType<TSpecification>();
+            return _argumentSpecifications.OfType<TSpecification>();
         }
 
         internal void ReadAttributes()
@@ -184,7 +188,7 @@ namespace ArgumentParser.Internal
 
         public IEnumerator<IArgumentSpecification> GetEnumerator()
         {
-            return _argumentSpecifications.Values.GetEnumerator();
+            return _argumentSpecifications.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
