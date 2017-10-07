@@ -13,7 +13,7 @@ namespace ArgumentParser.Internal
         public override string ToString()
         {
             return
-                $"{{ Name = {LongName}, Description = {Description}, Required = {Required}, Default = {DefaultValue} }}";
+                $"{{ CommandName = {LongName}, Description = {Description}, Required = {Required}, Default = {DefaultValue} }}";
         }
 
         IFluentCommandBuilder IFluentArgumentBuilder<IFluentCommandBuilder>.WithDescription(string description)

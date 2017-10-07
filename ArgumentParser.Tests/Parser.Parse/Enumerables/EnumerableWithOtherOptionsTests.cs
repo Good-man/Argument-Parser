@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace ArgumentParser.Enumerables
 {
     [TestClass]
+    [TestCategory("Parser.Parse.Enumerables")]
     public class EnumerableWithOtherOptionsTests
     {
         [TestMethod]
@@ -15,11 +16,13 @@ namespace ArgumentParser.Enumerables
             var args = CommandLine.Split(@"""one"" ""two"" -o:""option"" ""three""");
             var parser = new Parser<Options>();
             var results = parser.Parse(args);
-            var strings = results.Options.Strings;
+            var options = results.Options;
+            var strings = options.Strings;
             Assert.AreEqual(3, strings.Count);
             Assert.AreEqual("one", strings[0]);
             Assert.AreEqual("two", strings[1]);
             Assert.AreEqual("three", strings[2]);
+            Assert.AreEqual("option", options.Other);
         }
 
         class Options

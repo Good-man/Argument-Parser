@@ -37,7 +37,7 @@ namespace ArgumentParser.Internal
         public override string ToString()
         {
             return
-                $"{{ Name = {LongName}, Description = {Description}, Required = {Required}, Default = {DefaultValue} }}";
+                $"{{ Index = {Index}, Description = {Description}, Required = {Required}, Default = {DefaultValue} }}";
         }
     }
 }

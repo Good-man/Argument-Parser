@@ -126,8 +126,8 @@ namespace ArgumentParser.Internal
             {
                 var argument = this
                     .FirstOrDefault(a =>
-                        a.Name == argumentSpecification.LongName |
-                        a.Name == argumentSpecification.ShortName.ToString());
+                        (argumentSpecification.HasLongName  && a.Name == argumentSpecification.LongName) |
+                        (argumentSpecification.HasShortName && a.Name == argumentSpecification.ShortName.ToString()));
                 if (argument == null) return null;
                 if (argument.HasValue & argument.Is(expectedType)) return argument;
                 if (argument.HasValue & !argument.Is(expectedType)) return null;
