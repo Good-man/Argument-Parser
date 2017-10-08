@@ -73,12 +73,6 @@ namespace ArgumentParser.Internal
             return optionBuilder;
         }
 
-        [Obsolete("ArgumentSpecifications should be IEnumerable<IArgumentSpecification>")]
-        internal IEnumerable<IArgumentSpecification> GetSpecifications()
-        {
-            return _argumentSpecifications;
-        }
-
         internal IEnumerable<TSpecification> GetSpecifications<TSpecification>()
             where TSpecification : IArgumentSpecification
         {

@@ -26,8 +26,7 @@ namespace ArgumentParser
 
         public void DisplayHelp()
         {
-            var argumentSpecifications = _argumentSpecifications.GetSpecifications();
-            var helpText = new HelpTextInternal(argumentSpecifications);
+            var helpText = new HelpTextInternal(_argumentSpecifications);
             helpText.DisplayHelp();
         }
     }

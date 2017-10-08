@@ -16,7 +16,7 @@ namespace ArgumentParser
                 .As(0)
                 .SetDefault(MyEnum.OptionA)
                 .WithDescription("Enum option description");
-            var helpText = new HelpTextInternal(argumentSpecifications.GetSpecifications());
+            var helpText = new HelpTextInternal(argumentSpecifications);
             var argumentHelpTexts = helpText.GetNamedOptionHelpText().ToArray();
             Assert.AreEqual(2, argumentHelpTexts.Length);
         }
