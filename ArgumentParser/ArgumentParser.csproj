@@ -43,6 +43,7 @@
     <Compile Include="Api\IArgumentSpecification.cs" />
     <Compile Include="Api\IFluentArgumentBuilder.cs" />
     <Compile Include="Api\IFluentCommandBuilder.cs" />
+    <Compile Include="Api\IFluentEnumBuilder.cs" />
     <Compile Include="Api\IFluentOptionBuilder.cs" />
     <Compile Include="Api\IFluentSyntaxBuilder.cs" />
     <Compile Include="Api\IFluentValueBuilder.cs" />
