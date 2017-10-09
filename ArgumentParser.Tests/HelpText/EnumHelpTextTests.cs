@@ -14,8 +14,9 @@ namespace ArgumentParser
         public void Enum_DisplayHelp_DefaultStyle()
         {
             var syntaxBuilder = new ArgumentSpecifications<Options>() as IFluentSyntaxBuilder<Options>;
-            syntaxBuilder.SetupValue(o => o.MyEnum)
-                .As(0)
+            syntaxBuilder.SetupEnum(o => o.MyEnum)
+                .Map("optiona", MyEnum.OptionA)
+                .Map("optionb", MyEnum.OptionB)
                 .SetDefault(MyEnum.OptionA)
                 .WithDescription("Enum option description");
             var helpText = new HelpTextInternal((IEnumerable<IArgumentSpecification>) syntaxBuilder);

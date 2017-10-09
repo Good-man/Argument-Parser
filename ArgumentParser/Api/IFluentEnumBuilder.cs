@@ -6,5 +6,7 @@ namespace ArgumentParser.Api
     {
         IFluentEnumBuilder<TValue> Map(string longName, TValue toValue);
         IFluentEnumBuilder<TValue> Map(char shortName, TValue toValue);
+        IFluentEnumBuilder<TValue> SetDefault(TValue value);
+        IFluentEnumBuilder<TValue> IsRequired();
     }
 }

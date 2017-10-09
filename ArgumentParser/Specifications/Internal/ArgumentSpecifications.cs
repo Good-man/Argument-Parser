@@ -73,6 +73,27 @@ namespace ArgumentParser.Internal
             return optionBuilder;
         }
 
+        public IFluentEnumBuilder<TValue> SetupEnum<TValue>(Expression<Func<TOptions, TValue>> selector)
+        {
+            var memberInfo = ((MemberExpression)selector.Body).Member;
+            return SetupEnum<TValue>(memberInfo);
+        }
+
+        private IFluentEnumBuilder<TValue> SetupEnum<TValue>(MemberInfo memberInfo)
+        {
+            if (_argumentSpecifications.Any(s => s.MemberInfo == memberInfo))
+            {
+                var specification = _argumentSpecifications.First(s => s.MemberInfo == memberInfo);
+                var builder = specification as EnumSpecification<TValue>;
+                if (builder != null)
+                    return builder;
+                _argumentSpecifications.Remove(specification);
+            }
+            var enumSpecification = new EnumSpecification<TValue>(memberInfo);
+            _argumentSpecifications.Add(enumSpecification);
+            return enumSpecification;
+        }
+
         internal IEnumerable<TSpecification> GetSpecifications<TSpecification>()
             where TSpecification : IArgumentSpecification
         {
