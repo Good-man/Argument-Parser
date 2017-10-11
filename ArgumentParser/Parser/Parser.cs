@@ -133,11 +133,6 @@ namespace ArgumentParser
             return _argumentSpecifications.SetupValue(selector);
         }
 
-        public IFluentEnumBuilder<TValue> SetupEnum<TValue>(Expression<Func<TOptions, TValue>> selector)
-        {
-            return _argumentSpecifications.SetupEnum(selector);
-        }
-
         public void Validate()
         {
             _argumentSpecifications.Validate();

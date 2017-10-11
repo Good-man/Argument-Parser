@@ -73,12 +73,6 @@ namespace ArgumentParser.Internal
             return optionBuilder;
         }
 
-        public IFluentEnumBuilder<TValue> SetupEnum<TValue>(Expression<Func<TOptions, TValue>> selector)
-        {
-            var memberInfo = ((MemberExpression)selector.Body).Member;
-            return SetupEnum<TValue>(memberInfo);
-        }
-
         private IFluentEnumBuilder<TValue> SetupEnum<TValue>(MemberInfo memberInfo)
         {
             if (_argumentSpecifications.Any(s => s.MemberInfo == memberInfo))
