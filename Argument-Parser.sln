@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArgumentParser.Tests", "Arg
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArgumentParser.Usage", "ArgumentParser.Usage\ArgumentParser.Usage.csproj", "{16737B32-2751-408E-976A-53A7B874CAC0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArgumentParser.Api", "ArgumentParser.Api\ArgumentParser.Api.csproj", "{4146D58C-AB85-4DC6-B023-8F6046221F45}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{16737B32-2751-408E-976A-53A7B874CAC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16737B32-2751-408E-976A-53A7B874CAC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16737B32-2751-408E-976A-53A7B874CAC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4146D58C-AB85-4DC6-B023-8F6046221F45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4146D58C-AB85-4DC6-B023-8F6046221F45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4146D58C-AB85-4DC6-B023-8F6046221F45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4146D58C-AB85-4DC6-B023-8F6046221F45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
