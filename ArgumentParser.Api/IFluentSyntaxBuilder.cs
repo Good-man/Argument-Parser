@@ -8,5 +8,6 @@ namespace ArgumentParser.Api
     {
         IOptionBuilder Add(string longName);
         IOptionBuilder Add(char shortName);
+        IOptionBuilder Add();
     }
 }

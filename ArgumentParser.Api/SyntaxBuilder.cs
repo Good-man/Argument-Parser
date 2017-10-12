@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ArgumentParser.Api
 {
@@ -16,6 +17,12 @@ namespace ArgumentParser.Api
         {
             var key = (object) shortName;
             return Add(key);
+        }
+
+        public IOptionBuilder Add()
+        {
+            var index = _argumentSpecifications.Keys.OfType<int>().Count();
+            return Add(index);
         }
 
         private IOptionBuilder Add(object key)

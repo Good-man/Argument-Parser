@@ -1,6 +1,6 @@
 ﻿namespace ArgumentParser.Api
 {
-    public interface ICommandBuilder : IArgumentBuilder<ICommandBuilder>
+    public interface ICommandBuilder : IArgumentBuilder
     {
 
     }
