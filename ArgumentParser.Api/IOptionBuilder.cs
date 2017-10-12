@@ -1,9 +1,9 @@
 ﻿namespace ArgumentParser.Api
 {
-    public interface IOptionBuilder<TValue> : IArgumentBuilder<IOptionBuilder<TValue>>
+    public interface IOptionBuilder : IArgumentBuilder<IOptionBuilder>
     {
-        IOptionSpecification<TValue> OptionSpecification { get; }
+        IOptionSpecification OptionSpecification { get; }
 
-        IOptionBuilder<TValue> SetDefault(TValue value);
+        IOptionBuilder SetDefault(object value);
     }
 }

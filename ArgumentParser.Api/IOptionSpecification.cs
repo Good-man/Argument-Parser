@@ -1,6 +1,6 @@
 ﻿namespace ArgumentParser.Api
 {
-    public interface IOptionSpecification<TValue> : IArgumentSpecification
+    public interface IOptionSpecification : IArgumentSpecification
     {
         
     }

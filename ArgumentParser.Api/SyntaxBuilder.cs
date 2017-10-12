@@ -6,31 +6,31 @@ namespace ArgumentParser.Api
     {
         private readonly Dictionary<object, IArgumentSpecification> _argumentSpecifications = new Dictionary<object, IArgumentSpecification>();
 
-        public IOptionBuilder<TValue> Add<TValue>(string longName)
+        public IOptionBuilder Add(string longName)
         {
             var key = (object)longName;
-            return Add<TValue>(key);
+            return Add(key);
         }
 
-        public IOptionBuilder<TValue> Add<TValue>(char shortName)
+        public IOptionBuilder Add(char shortName)
         {
             var key = (object) shortName;
-            return Add<TValue>(key);
+            return Add(key);
         }
 
-        private IOptionBuilder<TValue> Add<TValue>(object key)
+        private IOptionBuilder Add(object key)
         {
 
             if (_argumentSpecifications.ContainsKey(key))
             {
                 var argumentSpecification = _argumentSpecifications[key];
-                if (argumentSpecification is IOptionSpecification<TValue>)
-                    return new OptionBuilder<TValue>(argumentSpecification as IOptionSpecification<TValue>);
+                if (argumentSpecification is IOptionSpecification)
+                    return new OptionBuilder(argumentSpecification as IOptionSpecification);
                 _argumentSpecifications.Remove(argumentSpecification);
             }
-            var optionSpecification = new OptionSpecification<TValue>();
+            var optionSpecification = new OptionSpecification();
             _argumentSpecifications.Add(key, optionSpecification);
-            return new OptionBuilder<TValue>(optionSpecification);
+            return new OptionBuilder(optionSpecification);
         }
     }
 }

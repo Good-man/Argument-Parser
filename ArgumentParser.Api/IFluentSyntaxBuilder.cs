@@ -6,7 +6,7 @@ namespace ArgumentParser.Api
 {
     public interface IFluentSyntaxBuilder
     {
-        IOptionBuilder<TValue> Add<TValue>(string longName);
-        IOptionBuilder<TValue> Add<TValue>(char shortName);
+        IOptionBuilder Add(string longName);
+        IOptionBuilder Add(char shortName);
     }
 }

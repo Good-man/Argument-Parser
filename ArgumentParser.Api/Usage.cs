@@ -8,15 +8,15 @@ namespace ArgumentParser.Api
         {
             var builder = new SyntaxBuilder();
 
-            builder.Add<string>("option")
+            builder.Add("option")
                 .SetDefault("default value")
                 .WithDescription("Option description");
 
-            builder.Add<MyEnum>("optiona")
+            builder.Add("optiona")
                 .SetDefault(MyEnum.OptionA)
                 .WithDescription("OptionA description");
 
-            builder.Add<int>("num").SetDefault(3).WithDescription("number description");
+            builder.Add("num").SetDefault(3).WithDescription("number description");
         }
     }
 
