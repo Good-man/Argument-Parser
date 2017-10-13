@@ -6,8 +6,8 @@ namespace ArgumentParser.Api
 {
     public interface IFluentSyntaxBuilder
     {
-        IOptionBuilder Add(string longName);
-        IOptionBuilder Add(char shortName);
-        IOptionBuilder Add();
+        IArgumentBuilder Add(string longName);
+        IArgumentBuilder Add(char shortName);
+        IArgumentBuilder Add();
     }
 }

@@ -44,11 +44,8 @@
     <Compile Include="IArgumentSpecification.cs" />
     <Compile Include="ICommandBuilder.cs" />
     <Compile Include="IFluentSyntaxBuilder.cs" />
-    <Compile Include="IMap.cs" />
-    <Compile Include="IOptionSpecification.cs" />
-    <Compile Include="IOptionBuilder.cs" />
-    <Compile Include="OptionBuilder.cs" />
-    <Compile Include="OptionSpecification.cs" />
+    <Compile Include="ArgumentBuilder.cs" />
+    <Compile Include="ArgumentSpecification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SyntaxBuilder.cs" />
     <Compile Include="Usage.cs" />

@@ -2,7 +2,7 @@ using System.Reflection;
 
 namespace ArgumentParser.Api
 {
-    public class OptionSpecification : IOptionSpecification
+    public class ArgumentSpecification : IArgumentSpecification
     {
         public string LongName { get; }
         public char ShortName { get; }
