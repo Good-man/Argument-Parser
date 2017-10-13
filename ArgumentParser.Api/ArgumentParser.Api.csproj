@@ -42,8 +42,7 @@
   <ItemGroup>
     <Compile Include="IArgumentBuilder.cs" />
     <Compile Include="IArgumentSpecification.cs" />
-    <Compile Include="ICommandBuilder.cs" />
-    <Compile Include="IFluentSyntaxBuilder.cs" />
+    <Compile Include="ISyntaxBuilder.cs" />
     <Compile Include="ArgumentBuilder.cs" />
     <Compile Include="ArgumentSpecification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

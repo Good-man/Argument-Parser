@@ -3,23 +3,29 @@ using System.Linq;
 
 namespace ArgumentParser.Api
 {
-    class SyntaxBuilder : IFluentSyntaxBuilder
+    class SyntaxBuilder : ISyntaxBuilder
     {
         private readonly Dictionary<object, IArgumentSpecification> _argumentSpecifications = new Dictionary<object, IArgumentSpecification>();
 
-        public IArgumentBuilder Add(string longName)
+        public IArgumentBuilder AddCommand(string name)
+        {
+            var key = (object)name;
+            return Add(key);
+        }
+
+        public IArgumentBuilder AddOption(string longName)
         {
             var key = (object)longName;
             return Add(key);
         }
 
-        public IArgumentBuilder Add(char shortName)
+        public IArgumentBuilder AddOption(char shortName)
         {
-            var key = (object) shortName;
+            var key = (object)shortName;
             return Add(key);
         }
 
-        public IArgumentBuilder Add()
+        public IArgumentBuilder AddValue()
         {
             var index = _argumentSpecifications.Keys.OfType<int>().Count();
             return Add(index);
